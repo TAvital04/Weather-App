@@ -12,6 +12,7 @@ function App() {
   return (
     <>
       {print()}
+      <p>asdf</p>
     </>
   )
 }
