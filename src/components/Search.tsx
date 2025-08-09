@@ -1,25 +1,25 @@
 import {useState} from "react"
 
+import Weather from "./Weather.tsx"
+
 type Coord = {
     lat: number;
     lng: number;
 }
 
-function Search() {
+const Search = () => {
     const [lat, setLat] = useState("")
     const [lng, setLng] = useState("")
     const [coords, setCoords] = useState<Coord | null>(null)
 
     const [error, setError] = useState(false)
 
-    function validateCoords(latData: string, lngData: string) {
+    const validateCoords = (latData: string, lngData: string) => {
         let lat = Number(latData)
         let lng = Number(lngData)
 
         let latBool = false
         let lngBool = false
-
-        console.log(`>>${latData === ""}<< >>${lngData === ""}<<`)
 
         if(!Number.isNaN(lat) && latData != "") {
             if(lat >= -90 && lat <= 90) {
@@ -31,7 +31,7 @@ function Search() {
             if(lng >= -180 && lng <= 180) {
                 lngBool = true
             }
-        }
+        } 
 
         if(latBool && lngBool) {
             setCoords({lat, lng})
@@ -81,7 +81,7 @@ function Search() {
             </div>
 
 
-            {coords != null && <h1>{`${coords.lat}, ${coords.lng}`}</h1>}
+            {coords != null && <Weather coords = {coords}/>}
         </div>
     )
 }

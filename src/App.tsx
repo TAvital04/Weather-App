@@ -1,6 +1,6 @@
 import Search from "./components/Search.tsx"
 
-function App() {
+const App = () => {
 
   return (
     <>
