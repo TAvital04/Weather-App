@@ -1,6 +1,6 @@
 import {useState} from "react"
 
-import Weather from "./Weather.tsx"
+import Weather from "../Weather.tsx"
 
 type Coord = {
     lat: number;
@@ -37,10 +37,8 @@ const Search = () => {
             setCoords({lat, lng})
             setError(false)
         } else {
-            setError(true)    
+            setError(true)
         }
-
-        if(!error) setError(true)
     }
 
     return (
@@ -79,7 +77,6 @@ const Search = () => {
                     >Submit</button>        
                 </div>
             </div>
-
 
             {coords != null && <Weather coords = {coords}/>}
         </div>

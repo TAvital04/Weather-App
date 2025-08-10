@@ -1,10 +1,10 @@
-import Search from "./components/Search.tsx"
+import SearchCoords from "./components/search/SearchCoords.tsx"
 
 const App = () => {
 
   return (
     <>
-      <Search/>
+      <SearchCoords/>
     </>
   )
 }
