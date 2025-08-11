@@ -2,7 +2,6 @@ import {useState} from "react"
 
 import WeatherCurrent from "../weather/WeatherCurrent.tsx"
 import WeatherHourly from "../weather/WeatherHourly.tsx"
-import WeatherDaily from "../weather/WeatherDaily.tsx"
 
 type Coord = {
     lat: number;
@@ -83,8 +82,7 @@ const SearchCoords = () => {
             { 
                 coords != null && 
                 <WeatherCurrent coords = {coords}/> &&
-                <WeatherHourly coords = {coords}/> &&
-                <WeatherDaily coords = {coords}/>
+                <WeatherHourly coords = {coords}/>
             }
             
         </div>

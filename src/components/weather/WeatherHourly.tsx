@@ -7,60 +7,32 @@ type Coord = {
     lng: number
 }
 
-type ListEntry = {
-    dateTime: number;
-    main: {
-        id: number;
-        status: string;
-        description: string
-    },
-    conditions: {
-        temp: number;
-        feelsLike: number;
-        pressure: number;
-        humidity: number;
-        visibility: number;
-        wind: {
-            speed: number;
-            direction: number;
-            gust: number
-        },
-        clouds: number;
-        rain: number;
-        snow: number
-    }
+type ListElement = {
+
 }
+
 type Data = {
-    list: ListEntry
+
 }
 
-const mapEntry = (entry: any): ListEntry => {
-    return {
-        dateTime: entry.dt,
-        main: {
-            id: entry.weather[0].id,
-            status: entry.weather[0].main,
-            description: entry.weather[0].description
-        },
-        conditions: {
-            temp: entry.main.temp,
-            feelsLike: entry.main.feels_like,
-            pressure: entry.main.pressure,
-            humidity: entry.main.humidity,
-            visibility: entry.visibility,
-            wind: {
-                speed: entry.wind.speed,
-                direction: entry.wind.deg,
-                gust: entry.wind.gust
+const getHourlyWeather = (resJSON: any) => {
+    const result = []
+
+    for(let i = 0; i < 48; i += 3) {
+        result.push({
+            weather: {
+                status: resJSON.hourly[i].weather[0].main,
+                description: resJSON.hourly[i].weather[0].description,
+                id: resJSON.hourly[i].weather[0].id
             },
-            clouds: entry.clouds.all,
-            rain: entry.rain?.["3h"] ?? 0,
-            snow: entry.snow?.["3h"] ?? 0
-        }
+            conditions: {
+                
+            }
+        })
     }
 }
 
-const WeatherHourly = (props: { 
+const WeatherCurrent = (props: { 
     coords: Coord
 }) => {
     const [data, setData] = useState<Data | null>(null)
@@ -68,12 +40,12 @@ const WeatherHourly = (props: {
     useEffect(() => {
     async function handleData(coords: Coord) {
         const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.lng}&units=metric&appid=${key}&cnt=8`
+            `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lng}&units=metric&appid=${key}`
         );
         const resJSON = await res.json();
 
         const data: Data = {
-            list: resJSON.list.map(mapEntry)
+            list: getHourlyWeather(resJSON)
         };
 
         setData(data);
@@ -82,7 +54,7 @@ const WeatherHourly = (props: {
     }
     handleData(props.coords);
     }, [props.coords, key]);
- 
+
     return (
         <>
             
@@ -90,4 +62,4 @@ const WeatherHourly = (props: {
     )
 }
 
-export default WeatherHourly
+export default WeatherCurrent

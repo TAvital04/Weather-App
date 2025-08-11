@@ -8,35 +8,31 @@ type Coord = {
 }
 
 type Data = {
-    coords: {
-        lat: number;
-        lng: number;
-    },
-    main: {
-        id: number;
-        status: string;
-        description: string;
+    weather: {
+        status: string
+        description: string
+        id: number
     },
     conditions: {
-        temp: number;
-        feelsLike: number;
-        pressure: number;
-        humidity: number;
-        visibility: number;
+        temp: number
+        feelsLike: number
+        rain: number
+        snow: number
+        clouds: number
+        humidity: number
+        pressure: number
+        uvIndex: number
+        visibility: number
         wind: {
-            speed: number;
-            direction: number;
-            gust: number;
+            speed: number
+            direction: number
+            gust: number
         },
-        clouds: number;
-        rain: number;
-        snow: number;
-    },
-    location: {
-        timezone: number;
-        name: number;
-        dateTime: number;
-    }  
+        sun: {
+            rise: number
+            set: number
+        }
+    } 
 }
 
 const WeatherCurrent = (props: { 
@@ -47,45 +43,39 @@ const WeatherCurrent = (props: {
     useEffect(() => {
     async function handleData(coords: Coord) {
         const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lng}&units=metric&appid=${key}`
+            `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lng}&units=metric&appid=${key}`
         );
         const resJSON = await res.json();
 
         const data: Data = {
-            coords: {
-                lat: resJSON.coord.lat,
-                lng: resJSON.coord.lon
-            },
-            main: {
-                id: resJSON.weather[0].id,
-                status: resJSON.weather[0].main,
-                description: resJSON.weather[0].description
+            weather: {
+                status: resJSON.current.weather[0].main,
+                description: resJSON.current.weather[0].description,
+                id: resJSON.current.weather[0].id
             },
             conditions: {
-                temp: resJSON.main.temp,
-                feelsLike: resJSON.main.feels_like,
-                pressure: resJSON.main.pressure,
-                humidity: resJSON.main.humidity,
-                visibility: resJSON.visibility,
+                temp: resJSON.current.temp,
+                feelsLike: resJSON.current.feels_like,
+                rain: resJSON.current.rain?.["1h"] ?? 0,
+                snow: resJSON.current.snow?.["1h"] ?? 0,
+                clouds: resJSON.current.clouds,
+                humidity: resJSON.current.humidity,
+                pressure: resJSON.current.pressure,
+                uvIndex: resJSON.current.uvi,
+                visibility: resJSON.current.visibility,
                 wind: {
-                    speed: resJSON.wind.speed,
-                    direction: resJSON.wind.deg,
-                    gust: resJSON.wind.gust
+                    speed: resJSON.current.wind_speed,
+                    direction: resJSON.current.wind_deg,
+                    gust: resJSON.current.wind_gust
                 },
-                clouds: resJSON.clouds.all,
-                rain: resJSON.rain?.["1h"] ?? 0,
-                snow: resJSON.show?.["1h"] ?? 0,
-            },
-            location: {
-                timezone: resJSON.timezone,
-                name: resJSON.name,
-                dateTime: resJSON.dt
+                sun: {
+                    rise: resJSON.current.sunrise,
+                    set: resJSON.current.sunset
+                }
             }
         };
 
         setData(data);
-
-        console.log(data)
     }
     handleData(props.coords);
     }, [props.coords, key]);
