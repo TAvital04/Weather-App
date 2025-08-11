@@ -1,13 +1,15 @@
 import {useState} from "react"
 
-import Weather from "../Weather.tsx"
+import WeatherCurrent from "../weather/WeatherCurrent.tsx"
+import WeatherHourly from "../weather/WeatherHourly.tsx"
+import WeatherDaily from "../weather/WeatherDaily.tsx"
 
 type Coord = {
     lat: number;
     lng: number;
 }
 
-const Search = () => {
+const SearchCoords = () => {
     const [lat, setLat] = useState("")
     const [lng, setLng] = useState("")
     const [coords, setCoords] = useState<Coord | null>(null)
@@ -31,11 +33,11 @@ const Search = () => {
             if(lng >= -180 && lng <= 180) {
                 lngBool = true
             }
-        } 
+        }
 
         if(latBool && lngBool) {
-            setCoords({lat, lng})
             setError(false)
+            setCoords({lat, lng})
         } else {
             setError(true)
         }
@@ -78,9 +80,15 @@ const Search = () => {
                 </div>
             </div>
 
-            {coords != null && <Weather coords = {coords}/>}
+            { 
+                coords != null && 
+                <WeatherCurrent coords = {coords}/> &&
+                <WeatherHourly coords = {coords}/> &&
+                <WeatherDaily coords = {coords}/>
+            }
+            
         </div>
     )
 }
 
-export default Search
+export default SearchCoords
