@@ -11,9 +11,9 @@ const SearchCoords = (props: any) => {
     const handleApiData = async (lat: number, lng: number, setApiData: any) => {
         const res = await fetch(
             `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=metric&appid=${key}`
-        );
+        )
 
-        const resJSON = await res.json();
+        const resJSON = await res.json()
 
         setApiData(resJSON)
     }
@@ -47,37 +47,35 @@ const SearchCoords = (props: any) => {
 
     return (
         <div className = "contents">
-            <div className = "search">
-                <div className = "input">
-                    <input
-                        type = "number"
-                        placeholder = "latitude"
-                        value = {lat}
-                        onChange = {(e) => setLat(e.target.value)}
-                    />
+            <div className = "input">
+                <input
+                    type = "number"
+                    placeholder = "latitude"
+                    value = {lat}
+                    onChange = {(e) => setLat(e.target.value)}
+                />
 
-                    <input
-                        type = "number"
-                        placeholder = "longitude"
-                        value = {lng}
-                        onChange = {(e) => setLng(e.target.value)}
-                    />
-                </div>
+                <input
+                    type = "number"
+                    placeholder = "longitude"
+                    value = {lng}
+                    onChange = {(e) => setLng(e.target.value)}
+                />
+            </div>
 
-                <div className = "error">
-                    {error && 
-                        <ul>
-                            <li>Latitude must be greater than -90 and less than 90</li>
-                            <li>Longitude must be greater than -180 and less than 180</li>
-                        </ul>
-                    }
-                </div>
+            <div className = "error">
+                {error && 
+                    <ul>
+                        <li>Latitude must be greater than -90 and less than 90</li>
+                        <li>Longitude must be greater than -180 and less than 180</li>
+                    </ul>
+                }
+            </div>
 
-                <div className = "submit">
-                    <button
-                        onClick = {async () => await validateCoords(lat, lng, props.setApiData)}
-                    >Submit</button>        
-                </div>
+            <div className = "submit">
+                <button
+                    onClick = {async () => await validateCoords(lat, lng, props.setApiData)}
+                >Submit</button>        
             </div>
         </div>
     )
