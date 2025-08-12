@@ -2,6 +2,8 @@ import {useState} from "react"
 
 const key = import.meta.env.VITE_API_KEY
 
+import style from "../../styles/searchZip.module.css"
+
 const SearchZip = (props: any) => {
     const [zip, setZip] = useState("")
     const [country, setCountry] = useState("")
@@ -31,7 +33,7 @@ const SearchZip = (props: any) => {
     }
 
     return (
-        <div className = "contents">
+        <div className = {style.contents}>
             <div className = "input">
                 <input
                     type = "text"

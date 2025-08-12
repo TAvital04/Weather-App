@@ -2,6 +2,8 @@ import {useState} from "react"
 
 const key = import.meta.env.VITE_API_KEY
 
+import style from "../../styles/searchCoords.module.css"
+
 const SearchCoords = (props: any) => {
     const [lat, setLat] = useState("")
     const [lng, setLng] = useState("")
@@ -46,7 +48,7 @@ const SearchCoords = (props: any) => {
     }
 
     return (
-        <div className = "contents">
+        <div className = {style.contents}>
             <div className = "input">
                 <input
                     type = "number"

@@ -10,8 +10,11 @@ const App = () => {
 
   return (
     <div className = {style.contents}>
-      <Search setApiData = {setApiData}/>
-      {apiData && <Weather apiData = {apiData}/>}
+      <h1>Weather</h1>
+      <div className = {style.body}>
+        <Search setApiData = {setApiData}/>
+        {apiData && <Weather apiData = {apiData}/>}
+      </div>
     </div>
   )
 }

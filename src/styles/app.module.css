@@ -2,8 +2,8 @@
     border: solid black 1px;
     margin-top: 10rem;
     margin-bottom: 10rem;
-    padding: 1rem;
-    padding-bottom: 3rem;
+    padding: 2rem;
+    padding-top: 1rem;
 
     border-radius: 1rem;
 }
@@ -27,5 +27,6 @@ input, button {
     margin: .25rem;
 }
 
-* {
+.body {
+    margin-left: 1rem;
 }

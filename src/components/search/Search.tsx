@@ -10,7 +10,7 @@ const Search = (props: any) => {
     return (
         <>
             <div className = {style.contents}>
-                <h1>Search</h1>
+                <h2>Search</h2>
                 
                 <div className = {style.search}>
                     <button onClick={() => setCoords(!coords)}>
