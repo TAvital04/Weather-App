@@ -1,0 +1,19 @@
+.contents {
+    border: solid black 1px;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    padding: 1rem;
+}
+@media (max-width: 1000px) {
+    .contents {
+        margin-left: 15%;
+        margin-right: 15%;
+
+    }
+}
+@media (min-width: 1000px) {
+    .contents {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
