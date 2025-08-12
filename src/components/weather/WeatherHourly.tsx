@@ -8,11 +8,30 @@ type Coord = {
 }
 
 type ListElement = {
-
+    time: number
+    weather: {
+        status: string
+        description: string
+        id: number
+    },
+    conditions: {
+        temp: number
+        feelsLike: number
+        clouds: number
+        humidity: number
+        pressure: number
+        uvIndex: number
+        visibility: number
+        wind: {
+            speed: number
+            direction: number
+            gust: number
+        }
+    }
 }
 
 type Data = {
-
+    list: ListElement[]
 }
 
 const getHourlyWeather = (resJSON: any) => {
@@ -20,19 +39,33 @@ const getHourlyWeather = (resJSON: any) => {
 
     for(let i = 0; i < 48; i += 3) {
         result.push({
+            time: resJSON.hourly[i].dt,
             weather: {
                 status: resJSON.hourly[i].weather[0].main,
                 description: resJSON.hourly[i].weather[0].description,
                 id: resJSON.hourly[i].weather[0].id
             },
             conditions: {
-                
+                temp: resJSON.hourly[i].temp,
+                feelsLike: resJSON.hourly[i].feels_like,
+                clouds: resJSON.hourly[i].clouds,
+                humidity: resJSON.hourly[i].humidity,
+                pressure: resJSON.hourly[i].pressure,
+                uvIndex: resJSON.hourly[i].uvi,
+                visibility: resJSON.hourly[i].visibility,
+                wind: {
+                    speed: resJSON.hourly[i].wind_speed,
+                    direction: resJSON.hourly[i].wind_deg,
+                    gust: resJSON.hourly[i].wind_gust
+                }
             }
         })
     }
+
+    return result
 }
 
-const WeatherCurrent = (props: { 
+const WeatherHourly = (props: { 
     coords: Coord
 }) => {
     const [data, setData] = useState<Data | null>(null)
@@ -49,8 +82,6 @@ const WeatherCurrent = (props: {
         };
 
         setData(data);
-
-        console.log(data)
     }
     handleData(props.coords);
     }, [props.coords, key]);
@@ -62,4 +93,4 @@ const WeatherCurrent = (props: {
     )
 }
 
-export default WeatherCurrent
+export default WeatherHourly
