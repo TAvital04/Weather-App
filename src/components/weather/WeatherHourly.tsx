@@ -1,12 +1,5 @@
 import {useState, useEffect} from "react"
 
-const key = import.meta.env.VITE_API_KEY
-
-type Coord = {
-    lat: number;
-    lng: number
-}
-
 type ListElement = {
     time: number
     weather: {
@@ -34,29 +27,29 @@ type Data = {
     list: ListElement[]
 }
 
-const getHourlyWeather = (resJSON: any) => {
+const getHourlyWeather = (apiData: any) => {
     const result = []
 
     for(let i = 0; i < 48; i += 3) {
         result.push({
-            time: resJSON.hourly[i].dt,
+            time: apiData.hourly[i].dt,
             weather: {
-                status: resJSON.hourly[i].weather[0].main,
-                description: resJSON.hourly[i].weather[0].description,
-                id: resJSON.hourly[i].weather[0].id
+                status: apiData.hourly[i].weather[0].main,
+                description: apiData.hourly[i].weather[0].description,
+                id: apiData.hourly[i].weather[0].id
             },
             conditions: {
-                temp: resJSON.hourly[i].temp,
-                feelsLike: resJSON.hourly[i].feels_like,
-                clouds: resJSON.hourly[i].clouds,
-                humidity: resJSON.hourly[i].humidity,
-                pressure: resJSON.hourly[i].pressure,
-                uvIndex: resJSON.hourly[i].uvi,
-                visibility: resJSON.hourly[i].visibility,
+                temp: apiData.hourly[i].temp,
+                feelsLike: apiData.hourly[i].feels_like,
+                clouds: apiData.hourly[i].clouds,
+                humidity: apiData.hourly[i].humidity,
+                pressure: apiData.hourly[i].pressure,
+                uvIndex: apiData.hourly[i].uvi,
+                visibility: apiData.hourly[i].visibility,
                 wind: {
-                    speed: resJSON.hourly[i].wind_speed,
-                    direction: resJSON.hourly[i].wind_deg,
-                    gust: resJSON.hourly[i].wind_gust
+                    speed: apiData.hourly[i].wind_speed,
+                    direction: apiData.hourly[i].wind_deg,
+                    gust: apiData.hourly[i].wind_gust
                 }
             }
         })
@@ -65,26 +58,16 @@ const getHourlyWeather = (resJSON: any) => {
     return result
 }
 
-const WeatherHourly = (props: { 
-    coords: Coord
-}) => {
+const WeatherHourly = (props: any) => {
     const [data, setData] = useState<Data | null>(null)
 
     useEffect(() => {
-    async function handleData(coords: Coord) {
-        const res = await fetch(
-            `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lng}&units=metric&appid=${key}`
-        );
-        const resJSON = await res.json();
-
         const data: Data = {
-            list: getHourlyWeather(resJSON)
+            list: getHourlyWeather(props.apiData)
         };
 
         setData(data);
-    }
-    handleData(props.coords);
-    }, [props.coords, key]);
+    }, [props.apiData]);
 
     return (
         <>

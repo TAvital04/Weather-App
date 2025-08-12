@@ -1,12 +1,5 @@
 import {useState, useEffect} from "react"
 
-const key = import.meta.env.VITE_API_KEY
-
-type Coord = {
-    lat: number;
-    lng: number
-}
-
 type ListElement = {
     time: number
     weather: {
@@ -39,34 +32,34 @@ type Data = {
     list: ListElement[]
 }
 
-const getDailyWeather = (resJSON: any) => {
+const getDailyWeather = (apiData: any) => {
     const result = []
 
     for(let i = 1; i < 8; i++) {
         result.push({
-            time: resJSON.daily[i].dt,
+            time: apiData.daily[i].dt,
             weather: {
-                status: resJSON.daily[i].weather[0].main,
-                description: resJSON.daily[i].weather[0].description,
-                id: resJSON.daily[i].weather[0].id
+                status: apiData.daily[i].weather[0].main,
+                description: apiData.daily[i].weather[0].description,
+                id: apiData.daily[i].weather[0].id
             },
             conditions: {
-                temp: (resJSON.daily[i].temp.min + resJSON.daily[i].temp.max)/2,
-                feelsLike: (resJSON.daily[i].feels_like.day + resJSON.daily[i].feels_like.morn)/2,
-                rain: resJSON.daily[i].rain?.["1h"] ?? 0,
-                snow: resJSON.daily[i].snow?.["1h"] ?? 0,
-                clouds: resJSON.daily[i].clouds,
-                humidity: resJSON.daily[i].humidity,
-                pressure: resJSON.daily[i].pressure,
-                uvIndex: resJSON.daily[i].uvi,
+                temp: (apiData.daily[i].temp.min + apiData.daily[i].temp.max)/2,
+                feelsLike: (apiData.daily[i].feels_like.day + apiData.daily[i].feels_like.morn)/2,
+                rain: apiData.daily[i].rain?.["1h"] ?? 0,
+                snow: apiData.daily[i].snow?.["1h"] ?? 0,
+                clouds: apiData.daily[i].clouds,
+                humidity: apiData.daily[i].humidity,
+                pressure: apiData.daily[i].pressure,
+                uvIndex: apiData.daily[i].uvi,
                 wind: {
-                    speed: resJSON.daily[i].wind_speed,
-                    direction: resJSON.daily[i].wind_deg,
-                    gust: resJSON.daily[i].wind_gust
+                    speed: apiData.daily[i].wind_speed,
+                    direction: apiData.daily[i].wind_deg,
+                    gust: apiData.daily[i].wind_gust
                 },
                 sun: {
-                    rise: resJSON.daily[i].sunrise,
-                    set: resJSON.daily[i].sunset
+                    rise: apiData.daily[i].sunrise,
+                    set: apiData.daily[i].sunset
                 }
             }
         })
@@ -75,28 +68,16 @@ const getDailyWeather = (resJSON: any) => {
     return result
 }
 
-const WeatherDaily = (props: { 
-    coords: Coord
-}) => {
+const WeatherDaily = (props: any) => {
     const [data, setData] = useState<Data | null>(null)
 
     useEffect(() => {
-    async function handleData(coords: Coord) {
-        const res = await fetch(
-            `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lng}&units=metric&appid=${key}`
-        );
-        const resJSON = await res.json();
-
         const data: Data = {
-            list: getDailyWeather(resJSON)
+            list: getDailyWeather(props.apiData)
         };
 
         setData(data);
-
-        console.log(data)
-    }
-    handleData(props.coords);
-    }, [props.coords, key]);
+    }, [props.apiData]);
 
     return (
         <>

@@ -1,12 +1,5 @@
 import {useState, useEffect} from "react"
 
-const key = import.meta.env.VITE_API_KEY
-
-type Coord = {
-    lat: number;
-    lng: number
-}
-
 type Data = {
     weather: {
         status: string
@@ -35,50 +28,38 @@ type Data = {
     } 
 }
 
-const WeatherCurrent = (props: { 
-    coords: Coord
-}) => {
+const WeatherCurrent = (props: any) => {
     const [data, setData] = useState<Data | null>(null)
 
     useEffect(() => {
-    async function handleData(coords: Coord) {
-        const res = await fetch(
-            `https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lng}&units=metric&appid=${key}`
-        );
-        const resJSON = await res.json();
-
-        const data: Data = {
+        setData({
             weather: {
-                status: resJSON.current.weather[0].main,
-                description: resJSON.current.weather[0].description,
-                id: resJSON.current.weather[0].id
+                status: props.apiData.current.weather[0].main,
+                description: props.apiData.current.weather[0].description,
+                id: props.apiData.current.weather[0].id
             },
             conditions: {
-                temp: resJSON.current.temp,
-                feelsLike: resJSON.current.feels_like,
-                rain: resJSON.current.rain?.["1h"] ?? 0,
-                snow: resJSON.current.snow?.["1h"] ?? 0,
-                clouds: resJSON.current.clouds,
-                humidity: resJSON.current.humidity,
-                pressure: resJSON.current.pressure,
-                uvIndex: resJSON.current.uvi,
-                visibility: resJSON.current.visibility,
+                temp: props.apiData.current.temp,
+                feelsLike: props.apiData.current.feels_like,
+                rain: props.apiData.current.rain?.["1h"] ?? 0,
+                snow: props.apiData.current.snow?.["1h"] ?? 0,
+                clouds: props.apiData.current.clouds,
+                humidity: props.apiData.current.humidity,
+                pressure: props.apiData.current.pressure,
+                uvIndex: props.apiData.current.uvi,
+                visibility: props.apiData.current.visibility,
                 wind: {
-                    speed: resJSON.current.wind_speed,
-                    direction: resJSON.current.wind_deg,
-                    gust: resJSON.current.wind_gust
+                    speed: props.apiData.current.wind_speed,
+                    direction: props.apiData.current.wind_deg,
+                    gust: props.apiData.current.wind_gust
                 },
                 sun: {
-                    rise: resJSON.current.sunrise,
-                    set: resJSON.current.sunset
+                    rise: props.apiData.current.sunrise,
+                    set: props.apiData.current.sunset
                 }
             }
-        };
-
-        setData(data);
-    }
-    handleData(props.coords);
-    }, [props.coords, key]);
+        })
+    }, [props.apiData]);
 
     return (
         <>

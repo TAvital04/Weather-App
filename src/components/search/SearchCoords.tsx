@@ -1,22 +1,24 @@
 import {useState} from "react"
 
-import WeatherCurrent from "../weather/WeatherCurrent.tsx"
-import WeatherHourly from "../weather/WeatherHourly.tsx"
-import WeatherDaily from "../weather/WeatherDaily.tsx"
+const key = import.meta.env.VITE_API_KEY
 
-type Coord = {
-    lat: number;
-    lng: number;
-}
-
-const SearchCoords = () => {
+const SearchCoords = (props: any) => {
     const [lat, setLat] = useState("")
     const [lng, setLng] = useState("")
-    const [coords, setCoords] = useState<Coord | null>(null)
 
     const [error, setError] = useState(false)
 
-    const validateCoords = (latData: string, lngData: string) => {
+    const handleApiData = async (lat: number, lng: number, setApiData: any) => {
+        const res = await fetch(
+            `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&units=metric&appid=${key}`
+        );
+
+        const resJSON = await res.json();
+
+        setApiData(resJSON)
+    }
+
+    const validateCoords = async (latData: string, lngData: string, setApiData: any) => {
         let lat = Number(latData)
         let lng = Number(lngData)
 
@@ -37,7 +39,7 @@ const SearchCoords = () => {
 
         if(latBool && lngBool) {
             setError(false)
-            setCoords({lat, lng})
+            handleApiData(lat, lng, setApiData)
         } else {
             setError(true)
         }
@@ -45,8 +47,6 @@ const SearchCoords = () => {
 
     return (
         <div className = "contents">
-            <h1 className = "title">Search</h1>
-
             <div className = "search">
                 <div className = "input">
                     <input
@@ -75,18 +75,10 @@ const SearchCoords = () => {
 
                 <div className = "submit">
                     <button
-                        onClick = {() => validateCoords(lat, lng)}
+                        onClick = {async () => await validateCoords(lat, lng, props.setApiData)}
                     >Submit</button>        
                 </div>
             </div>
-
-            { 
-                coords != null && 
-                <WeatherCurrent coords = {coords}/> &&
-                <WeatherHourly coords = {coords}/> &&
-                <WeatherDaily coords = {coords}/>
-            }
-            
         </div>
     )
 }

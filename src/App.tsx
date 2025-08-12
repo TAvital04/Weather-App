@@ -1,10 +1,15 @@
-import SearchCoords from "./components/search/SearchCoords.tsx"
+import {useState} from "react"
+
+import Search from "./components/search/Search.tsx"
+import Weather from "./components/weather/Weather.tsx"
 
 const App = () => {
+  const [apiData, setApiData] = useState(null)
 
   return (
     <>
-      <SearchCoords/>
+      <Search setApiData = {setApiData}/>
+      {apiData && <Weather apiData = {apiData}/>}
     </>
   )
 }
