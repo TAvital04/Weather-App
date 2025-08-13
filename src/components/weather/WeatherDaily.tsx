@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 
-import {getDate, getTime} from "../../modules/utils.tsx"
+import * as renderUtils from "../../modules/renderUtils.tsx"
 
 import style from "../../styles/weatherDaily.module.css"
 
@@ -79,22 +79,20 @@ const getWeatherDaily = (apiData: any) => {
 const WeatherDailyElement = (props: any) => {
     return (
         <div className = {style.contentsElement}>
-            <h4>{getDate(props.element.time.time, props.element.time.timezone)}</h4>
+            <h4>{renderUtils.getDate(props.element.time.time, props.element.time.timezone)}</h4>
 
             <ul>
-                <li><h5>{props.element.weather.status}</h5></li>
-                <li>Temperature {props.element.conditions.temp} C</li>
-                <li>Feels Like {props.element.conditions.feelsLike} C</li>
-                <li>Rain: {props.element.conditions.rain} mm/h</li>
-                <li>Snow: {props.element.conditions.snow} mm/h</li>
-                <li>Clouds: {props.element.conditions.clouds}%</li>
-                <li>Humidity: {props.element.conditions.humidity}%</li>
-                <li>Pressure: {props.element.conditions.pressure} hPa</li>
-                <li>UV Index: {props.element.conditions.uvIndex}</li>
-                <li>Wind Speed: {props.element.conditions.wind.speed}</li>
-                <li>Wind Direction: {props.element.conditions.wind.direction} degrees from North</li>
-                <li>Sunrise: {getTime(props.element.conditions.sun.rise, props.element.conditions.timezone)}</li>
-                <li>Sunset: {getTime(props.element.conditions.sun.set, props.element.conditions.timezone)}</li>
+                <li>{renderUtils.getStatus(props.element.weather.status)}</li>
+                <li>{renderUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</li>
+                <li>{renderUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</li>
+                <li>{renderUtils.getRain(props.element.conditions.rain, props.unit)}</li>
+                <li>{renderUtils.getSnow(props.element.conditions.snow, props.unit)}</li>
+                <li>{renderUtils.getClouds(props.element.conditions.clouds)}</li>
+                <li>{renderUtils.getHumidity(props.element.conditions.humidity)}</li>
+                <li>{renderUtils.getPressure(props.element.conditions.pressure)}</li>
+                <li>{renderUtils.getUVIndex(props.element.conditions.uvIndex)}</li>
+                <li>{renderUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</li>
+                <li>{renderUtils.getSun(props.element.conditions.sun.rise, props.element.conditions.sun.set, props.element.conditions.timezone)}</li>
             </ul>
         </div>
     )
@@ -121,7 +119,6 @@ const WeatherDaily = (props: any) => {
                         <li key = {element.time.time}><WeatherDailyElement element = {element}/></li>
                     ))}                    
                 </ul>
-
             </div>
         </div>
     )

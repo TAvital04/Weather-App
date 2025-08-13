@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 
-import {getTime} from "../../modules/utils.tsx"
+import * as renderUtils from "../../modules/renderUtils.tsx"
 
 type Data = {
     weather: {
@@ -33,20 +33,18 @@ type Data = {
 const WeatherCurrentElement = (props: any) => {
     return (
         <ul>
-            <li><h4>{props.data.weather.status}</h4></li>
-            <li>Temperature: {props.data.conditions.temp} C</li>
-            <li>Feels Like: {props.data.conditions.feelsLike} C</li>
-            <li>Rain: {props.data.conditions.rain} mm/h</li>
-            <li>Snow: {props.data.conditions.snow} mm/h</li>
-            <li>Clouds: {props.data.conditions.clouds}%</li>
-            <li>Humidity: {props.data.conditions.humidity}%</li>
-            <li>Pressure: {props.data.conditions.pressure} hPa</li>
-            <li>UV Index: {props.data.conditions.uvIndex}</li>
-            <li>Visibility: {props.data.conditions.visibility} m</li>
-            <li>Wind Speed: {props.data.conditions.wind.speed} m/s</li>
-            <li>Wind Direction: {props.data.conditions.wind.direction} degrees from North</li>
-            <li>Sunrise: {getTime(props.data.conditions.sun.rise, props.data.conditions.sun.timezone)}</li>
-            <li>Sunset: {getTime(props.data.conditions.sun.set, props.data.conditions.sun.timezone)}</li>
+            <li>{renderUtils.getStatus(props.data.weather.status)}</li>
+            <li>{renderUtils.getTemp(props.data.conditions.temp, props.unit, "Temperature")}</li>
+            <li>{renderUtils.getTemp(props.data.conditions.feelsLike, props.unit, "Feels Like")}</li>
+            <li>{renderUtils.getRain(props.data.conditions.rain, props.unit)}</li>
+            <li>{renderUtils.getSnow(props.data.conditions.snow, props.unit)}</li>
+            <li>{renderUtils.getClouds(props.data.conditions.clouds)}</li>
+            <li>{renderUtils.getHumidity(props.data.conditions.humidity)}</li>
+            <li>{renderUtils.getPressure(props.data.conditions.pressure)}</li>
+            <li>{renderUtils.getUVIndex(props.data.conditions.uvIndex)}</li>
+            <li>{renderUtils.getVisibility(props.data.conditions.visibility, props.unit)}</li>
+            <li>{renderUtils.getWind(props.data.conditions.wind.speed, props.data.conditions.wind.direction, props.unit)}</li>
+            <li>{renderUtils.getSun(props.data.conditions.sun.rise, props.data.conditions.sun.set, props.data.conditions.sun.timezone)}</li>
         </ul>
     )
 }
@@ -87,9 +85,8 @@ const WeatherCurrent = (props: any) => {
     return (
         <div className = "contents">
             <h3>Current Weather</h3>
-
             <div className = "body">
-                {data && <WeatherCurrentElement data = {data}/>}
+                {data && <WeatherCurrentElement data = {data} unit = {props.unit}/>}
             </div>
         </div>
     )

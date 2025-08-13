@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react"
 
-import {getTime} from "../../modules/utils.tsx"
+import * as renderUtils from "../../modules/renderUtils.tsx"
+
+import style from "../../styles/weatherHourly.module.css"
 
 type ListElement = {
     time: {
@@ -67,19 +69,17 @@ const getHourlyWeather = (apiData: any) => {
 const WeatherHourlyElement = (props: any) => {
     return (
         <div className = "contents-element">                
-            <h4>{getTime(props.element.time.time, props.element.time.timezone)}</h4>
-
+            <h4>{renderUtils.getTime(props.element.time.time, props.element.time.timezone)}</h4>
+{console.log(props)|| true}
             <ul>
-                <li><h5>{props.element.weather.status}</h5></li>
-                <li>Temperature: {props.element.conditions.temp} C</li>
-                <li>Feels Likes: {props.element.conditions.feelsLike} C</li>
-                <li>Clouds: {props.element.conditions.clouds}%</li>
-                <li>Humidity: {props.element.conditions.humidity}%</li>
-                <li>Pressure: {props.element.conditions.pressure} hPa</li>
-                <li>UV Index: {props.element.conditions.uvIndex}</li>
-                <li>Visibility: {props.element.conditions.visibility} m</li>
-                <li>Wind Speed: {props.element.conditions.wind.speed} m/s</li>
-                <li>Wind Direction: {props.element.conditions.wind.direction} degrees from North</li>
+                <li>{renderUtils.getStatus(props.element.weather.status)}</li>
+                <li>{renderUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</li>
+                <li>{renderUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</li>
+                <li>{renderUtils.getClouds(props.element.conditions.clouds)}</li>
+                <li>{renderUtils.getHumidity(props.element.conditions.humidity)}</li>
+                <li>{renderUtils.getPressure(props.element.conditions.pressure)}</li>
+                <li>{renderUtils.getUVIndex(props.element.conditions.uvIndex)}</li>
+                <li>{renderUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</li>
             </ul>
         </div>
     )
@@ -101,10 +101,10 @@ const WeatherHourly = (props: any) => {
             <div className = "contents">
                 <h3>Hourly Weather</h3>
 
-                <div className = "body">
+                <div className = {style.body}>
                     <ul>
                         {data && data.list.map((element) => (                    
-                            <li key = {element.time.time}><WeatherHourlyElement element = {element}/></li>
+                            <li key = {element.time.time}><WeatherHourlyElement element = {element} unit = {props.unit}/></li>
                         ))}  
                     </ul>
                 </div>

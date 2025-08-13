@@ -4,16 +4,15 @@ import WeatherCurrent from "./WeatherCurrent.tsx"
 import WeatherHourly from "./WeatherHourly.tsx"
 import WeatherDaily from "./WeatherDaily.tsx"
 
-import {getTime, getDate} from "../../modules/utils.tsx"
+import * as renderUtils from "../../modules/renderUtils.tsx"
 
 const key = import.meta.env.VITE_API_KEY
-
-import style from "../../styles/weather.module.css"
 
 const Weather = (props: any) => {
     const [location, setLocation] = useState("")
     const [date, setDate] = useState("")
     const [time, setTime] = useState("")
+    const [metric, setMetric] = useState(true)
 
     useEffect(() => {
         const fetchData = async (apiData: any) => {
@@ -34,19 +33,21 @@ const Weather = (props: any) => {
     }, [props.apiData])
 
     useEffect(() => {
-        setDate(getDate(props.apiData.current.dt, props.apiData.timezone))
-        setTime(getTime(props.apiData.current.dt, props.apiData.timezone))
+        setDate(renderUtils.getDate(props.apiData.current.dt, props.apiData.timezone))
+        setTime(renderUtils.getTime(props.apiData.current.dt, props.apiData.timezone))
     }, [props.apiData])
 
     return (
         <div className = "contents">
+            <button onClick = {() => setMetric(!metric)}>{metric? "Metric": "Customary"}</button>
+
             {location != "" && <h2>{location}</h2>}
 
             <div className = "body">
                 {props.apiData && <h4>{date}: {time}</h4>}
-                {props.apiData && <WeatherCurrent apiData = {props.apiData}/>}
-                {props.apiData && <WeatherHourly apiData = {props.apiData}/>}
-                {props.apiData && <WeatherDaily apiData = {props.apiData}/>}
+                {props.apiData && <WeatherCurrent apiData = {props.apiData} unit = {metric}/>}
+                {props.apiData && <WeatherHourly apiData = {props.apiData} unit = {metric}/>}
+                {props.apiData && <WeatherDaily apiData = {props.apiData} unit = {metric}/>}
             </div>
         </div>
     )
