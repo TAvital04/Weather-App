@@ -23,6 +23,7 @@ const Search = (props: any) => {
                     }
                 </div>
             </div>
+            
         </>
     )
 }

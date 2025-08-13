@@ -25,7 +25,7 @@ const App = () => {
       if(apiData) {
         reRenderData(apiData)
       }
-    }, 60 * 1000)
+    }, 6000 * 1000)
 
     return () => clearInterval(interval)
   }, [apiData])

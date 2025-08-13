@@ -1,5 +1,7 @@
 import {useState, useEffect} from "react"
 
+import {getTime} from "../../modules/utils.tsx"
+
 type Data = {
     weather: {
         status: string
@@ -26,12 +28,6 @@ type Data = {
             set: number
         }
     } 
-}
-
-const getTime = (dateTime: number, timezone: string): string => {
-    return new Date(dateTime * 1000).toLocaleTimeString("en-US", {
-        timeZone: timezone, hour: "numeric", minute: "2-digit", hour12: true
-    })
 }
 
 const WeatherCurrentElement = (props: any) => {

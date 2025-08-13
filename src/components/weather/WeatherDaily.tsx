@@ -1,5 +1,7 @@
 import {useState, useEffect} from "react"
 
+import {getDate, getTime} from "../../modules/utils.tsx"
+
 import style from "../../styles/weatherDaily.module.css"
 
 type ListElement = {
@@ -72,18 +74,6 @@ const getWeatherDaily = (apiData: any) => {
     }
 
     return result
-}
-
-const getDate = (dateTime: number, timezone: string): string => {
-    return new Date(dateTime * 1000).toLocaleDateString("en-US", {
-        timeZone: timezone, weekday: "long", month: "long", day: "numeric"
-    })
-}
-
-const getTime = (dateTime: number, timezone: string): string => {
-    return new Date(dateTime * 1000).toLocaleTimeString("en-US", {
-        timeZone: timezone, hour: "numeric", minute: "2-digit", hour12: true
-    })
 }
 
 const WeatherDailyElement = (props: any) => {

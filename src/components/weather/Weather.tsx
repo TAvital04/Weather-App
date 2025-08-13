@@ -4,6 +4,8 @@ import WeatherCurrent from "./WeatherCurrent.tsx"
 import WeatherHourly from "./WeatherHourly.tsx"
 import WeatherDaily from "./WeatherDaily.tsx"
 
+import {getTime, getDate} from "../../modules/utils.tsx"
+
 const key = import.meta.env.VITE_API_KEY
 
 import style from "../../styles/weather.module.css"
@@ -32,16 +34,8 @@ const Weather = (props: any) => {
     }, [props.apiData])
 
     useEffect(() => {
-        const dateTime = props.apiData.current.dt * 1000
-        const timezone = props.apiData.timezone
-
-        setDate(new Date(dateTime).toLocaleDateString("en-US", {
-            timeZone: timezone, weekday: "long", month: "long", day: "numeric"
-        }))
-
-        setTime(new Date(dateTime).toLocaleTimeString("en-US", {
-            timeZone: timezone, hour: "numeric", minute: "2-digit", hour12: true
-        }))
+        setDate(getDate(props.apiData.current.dt, props.apiData.timezone))
+        setTime(getTime(props.apiData.current.dt, props.apiData.timezone))
     }, [props.apiData])
 
     return (
