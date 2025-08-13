@@ -34,6 +34,27 @@ const getTime = (dateTime: number, timezone: string): string => {
     })
 }
 
+const WeatherCurrentElement = (props: any) => {
+    return (
+        <ul>
+            <li><h4>{props.data.weather.status}</h4></li>
+            <li>Temperature: {props.data.conditions.temp} C</li>
+            <li>Feels Like: {props.data.conditions.feelsLike} C</li>
+            <li>Rain: {props.data.conditions.rain} mm/h</li>
+            <li>Snow: {props.data.conditions.snow} mm/h</li>
+            <li>Clouds: {props.data.conditions.clouds}%</li>
+            <li>Humidity: {props.data.conditions.humidity}%</li>
+            <li>Pressure: {props.data.conditions.pressure} hPa</li>
+            <li>UV Index: {props.data.conditions.uvIndex}</li>
+            <li>Visibility: {props.data.conditions.visibility} m</li>
+            <li>Wind Speed: {props.data.conditions.wind.speed} m/s</li>
+            <li>Wind Direction: {props.data.conditions.wind.direction} degrees from North</li>
+            <li>Sunrise: {getTime(props.data.conditions.sun.rise, props.data.conditions.sun.timezone)}</li>
+            <li>Sunset: {getTime(props.data.conditions.sun.set, props.data.conditions.sun.timezone)}</li>
+        </ul>
+    )
+}
+
 const WeatherCurrent = (props: any) => {
     const [data, setData] = useState<Data | null>(null)
 
@@ -72,22 +93,7 @@ const WeatherCurrent = (props: any) => {
             <h3>Current Weather</h3>
 
             <div className = "body">
-                <ul>
-                    {data && <li><h4>{data.weather.status}</h4></li>}
-                    {data && <li>Temperature: {data.conditions.temp} C</li>}
-                    {data && <li>Feels Like: {data.conditions.feelsLike} C</li>}
-                    {data && <li>Rain: {data.conditions.rain} mm/h</li>}
-                    {data && <li>Snow: {data.conditions.snow} mm/h</li>}
-                    {data && <li>Clouds: {data.conditions.clouds}%</li>}
-                    {data && <li>Humidity: {data.conditions.humidity}%</li>}
-                    {data && <li>Pressure: {data.conditions.pressure} hPa</li>}
-                    {data && <li>UV Index: {data.conditions.uvIndex}</li>}
-                    {data && <li>Visibility: {data.conditions.visibility} m</li>}
-                    {data && <li>Wind Speed: {data.conditions.wind.speed} m/s</li>}
-                    {data && <li>Wind Direction: {data.conditions.wind.direction} degrees from North</li>}
-                    {data && <li>Sunrise: {getTime(data.conditions.sun.rise, data.conditions.sun.timezone)}</li>}
-                    {data && <li>Sunset: {getTime(data.conditions.sun.set, data.conditions.sun.timezone)}</li>}
-                </ul>
+                {data && <WeatherCurrentElement data = {data}/>}
             </div>
         </div>
     )
