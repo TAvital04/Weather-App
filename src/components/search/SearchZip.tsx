@@ -29,6 +29,7 @@ const SearchZip = (props: any) => {
             setError(false)
         } else {
             setError(true)
+            setApiData(null)
         }
     }
 

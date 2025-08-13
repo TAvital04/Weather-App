@@ -1,7 +1,12 @@
 import {useState, useEffect} from "react"
 
+import style from "../../styles/weatherDaily.module.css"
+
 type ListElement = {
-    time: number
+    time: {
+        time: number
+        timezone: string
+    }
     weather: {
         status: string
         description: string
@@ -19,7 +24,6 @@ type ListElement = {
         wind: {
             speed: number
             direction: number
-            gust: number
         },
         sun: {
             rise: number
@@ -32,12 +36,15 @@ type Data = {
     list: ListElement[]
 }
 
-const getDailyWeather = (apiData: any) => {
+const getWeatherDaily = (apiData: any) => {
     const result = []
 
     for(let i = 1; i < 8; i++) {
         result.push({
-            time: apiData.daily[i].dt,
+            time: {
+                time: apiData.daily[i].dt,
+                timezone: apiData.timezone
+            },
             weather: {
                 status: apiData.daily[i].weather[0].main,
                 description: apiData.daily[i].weather[0].description,
@@ -55,7 +62,6 @@ const getDailyWeather = (apiData: any) => {
                 wind: {
                     speed: apiData.daily[i].wind_speed,
                     direction: apiData.daily[i].wind_deg,
-                    gust: apiData.daily[i].wind_gust
                 },
                 sun: {
                     rise: apiData.daily[i].sunrise,
@@ -68,21 +74,66 @@ const getDailyWeather = (apiData: any) => {
     return result
 }
 
+const getDate = (dateTime: number, timezone: string): string => {
+    return new Date(dateTime * 1000).toLocaleDateString("en-US", {
+        timeZone: timezone, weekday: "long", month: "long", day: "numeric"
+    })
+}
+
+const getTime = (dateTime: number, timezone: string): string => {
+    return new Date(dateTime * 1000).toLocaleTimeString("en-US", {
+        timeZone: timezone, hour: "numeric", minute: "2-digit", hour12: true
+    })
+}
+
+const WeatherDailyElement = (props: any) => {
+    return (
+        <div className = {style.contentsElement}>
+            <h4>{getDate(props.element.time.time, props.element.time.timezone)}</h4>
+
+            <ul>
+                <li><h5>{props.element.weather.status}</h5></li>
+                <li>Temperature {props.element.conditions.temp} C</li>
+                <li>Feels Like {props.element.conditions.feelsLike} C</li>
+                <li>Rain: {props.element.conditions.rain} mm/h</li>
+                <li>Snow: {props.element.conditions.snow} mm/h</li>
+                <li>Clouds: {props.element.conditions.clouds}%</li>
+                <li>Humidity: {props.element.conditions.humidity}%</li>
+                <li>Pressure: {props.element.conditions.pressure} hPa</li>
+                <li>UV Index: {props.element.conditions.uvIndex}</li>
+                <li>Wind Speed: {props.element.conditions.wind.speed}</li>
+                <li>Wind Direction: {props.element.conditions.wind.direction} degrees from North</li>
+                <li>Sunrise: {getTime(props.element.conditions.sun.rise, props.element.conditions.timezone)}</li>
+                <li>Sunset: {getTime(props.element.conditions.sun.set, props.element.conditions.timezone)}</li>
+            </ul>
+        </div>
+    )
+}
+
 const WeatherDaily = (props: any) => {
     const [data, setData] = useState<Data | null>(null)
 
     useEffect(() => {
         const data: Data = {
-            list: getDailyWeather(props.apiData)
+            list: getWeatherDaily(props.apiData)
         };
 
         setData(data);
     }, [props.apiData]);
 
     return (
-        <>
-            
-        </>
+        <div className = "contents">
+            <h3>Daily Weather</h3>
+
+            <div className = {style.body}>
+                <ul>
+                    {data && data.list.map((element) => (                    
+                        <li key = {element.time.time}><WeatherDailyElement element = {element}/></li>
+                    ))}                    
+                </ul>
+
+            </div>
+        </div>
     )
 }
 
