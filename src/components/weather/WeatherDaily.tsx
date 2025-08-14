@@ -80,7 +80,6 @@ const WeatherDailyElement = (props: any) => {
     return (
         <div className = {style.contentsElement}>
             <h4>{renderElementUtils.getDate(props.element.time.time, props.element.time.timezone)}</h4>
-
             <ul>
                 <li>{renderElementUtils.getStatus(props.element.weather.status)}</li>
                 <li>{renderElementUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</li>
@@ -116,7 +115,7 @@ const WeatherDaily = (props: any) => {
             <div className = {style.body}>
                 <ul>
                     {data && data.list.map((element) => (                    
-                        <li key = {element.time.time}><WeatherDailyElement element = {element}/></li>
+                        <li key = {element.time.time}><WeatherDailyElement element = {element} unit = {props.unit}/></li>
                     ))}                    
                 </ul>
             </div>

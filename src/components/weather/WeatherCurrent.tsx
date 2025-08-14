@@ -36,26 +36,22 @@ const WeatherCurrentElement = (props: any) => {
     return (
         <>
             <div className = {style.main}>
-                {renderUtils.getTemp(props.data.conditions.temp, props.unit, "Temperature")}
-                {renderUtils.getStatus(props.data.weather.status)}
-                <div className = "main-sub">
-                    <div className = "main-sub-child">{renderUtils.getTemp(props.data.conditions.feelsLike, props.unit, "Feels Like")}</div>
-                    <div className = "main-sub-child">{renderUtils.getRainSnow(props.data.conditions.rain, props.data.conditions.snow, props.unit)}</div>
-                    <div className = "main-sub-child">{renderUtils.getUVIndex(props.data.conditions.uvIndex)}</div>
+                <div className = {`${style.mainChild} ${style.top}`}>{renderUtils.getTemp(props.data.conditions.temp, props.unit, "Temperature")}</div>
+                <div className = {`${style.mainChild} ${style.top}`}>{renderUtils.getStatus(props.data.weather.status)}</div>
+                <div className = {`${style.mainChild} ${style.mainSub} ${style.bottom}`}>
+                    <div className = {style.mainSubChild}>{renderUtils.getTemp(props.data.conditions.feelsLike, props.unit, "Feels Like")}</div>
+                    <div className = {style.mainSubChild}>{renderUtils.getRainSnow(props.data.conditions.rain, props.data.conditions.snow, props.unit)}</div>
+                    <div className = {style.mainSubChild}>{renderUtils.getUVIndex(props.data.conditions.uvIndex)}</div>
                 </div>
             </div>
 
-            <div className = "other">
-                <h4>Other</h4>
-
-                <ul className = "other">
-                    <li>{renderUtils.getClouds(props.data.conditions.clouds)}</li>
-                    <li>{renderUtils.getHumidity(props.data.conditions.humidity)}</li>
-                    <li>{renderUtils.getPressure(props.data.conditions.pressure)}</li>
-                    <li>{renderUtils.getVisibility(props.data.conditions.visibility, props.unit)}</li>
-                    <li>{renderUtils.getWind(props.data.conditions.wind.speed, props.data.conditions.wind.direction, props.unit)}</li>
-                    <li>{renderUtils.getSun(props.data.conditions.sun.rise, props.data.conditions.sun.set, props.data.conditions.sun.timezone)}</li>
-                </ul>                
+            <div className = {style.other}>
+                <div className = {style.otherChild}>{renderUtils.getClouds(props.data.conditions.clouds)}</div>
+                <div className = {style.otherChild}>{renderUtils.getHumidity(props.data.conditions.humidity)}</div>
+                <div className = {style.otherChild}>{renderUtils.getPressure(props.data.conditions.pressure)}</div>
+                <div className = {style.otherChild}>{renderUtils.getVisibility(props.data.conditions.visibility, props.unit)}</div>
+                <div className = {style.otherChild}>{renderUtils.getWind(props.data.conditions.wind.speed, props.data.conditions.wind.direction, props.unit)}</div>
+                <div className = {style.otherChild}>{renderUtils.getSun(props.data.conditions.sun.rise, props.data.conditions.sun.set, props.data.conditions.sun.timezone)}</div>
             </div>
         </>
     )
@@ -95,8 +91,8 @@ const WeatherCurrent = (props: any) => {
     }, [props.apiData]);
 
     return (
-        <div className = "contents">
-            <h3>Current Weather</h3>
+        <div className = {style.contents}>
+            <h3 className = "heading">Current Weather</h3>
             <div className = "body">
                 {data && <WeatherCurrentElement data = {data} unit = {props.unit}/>}
             </div>

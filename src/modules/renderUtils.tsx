@@ -26,7 +26,7 @@ export const getStatus = (status: string) => {
 // Temperature
 const Temp = (props: any) => {
     const type = props.type
-    const temp = props.unit? props.temp: (props.temp * (9/5) + 32).toFixed(0)
+    const temp = props.unit? props.temp.toFixed(0): (props.temp * (9/5) + 32).toFixed(0)
     const unit = props.unit? "C": "F"
 
     return (
@@ -167,10 +167,8 @@ const Wind = (props: any) => {
     return (
         <>
             Wind:
-            <ul>
-                <li>Speed = {windSpeed} {unit}</li>
-                <li>Direction = {direction}</li>
-            </ul>
+                Speed = {windSpeed} {unit}
+                Direction = {direction}
         </>
     )
 }
@@ -185,10 +183,8 @@ const Sun = (props: any) => {
     return (
         <>
             Sun
-            <ul>
-                <li>Rises: {sunrise}</li>
-                <li>Sets: {sunset}</li>
-            </ul>
+                Rises: {sunrise}
+                Sets: {sunset}
         </>
     )
 }

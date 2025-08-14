@@ -6,6 +6,8 @@ import WeatherDaily from "./WeatherDaily.tsx"
 
 import * as renderUtils from "../../modules/renderUtils.tsx"
 
+import style from "../../styles/weather.module.css"
+
 const key = import.meta.env.VITE_API_KEY
 
 const Weather = (props: any) => {
@@ -38,13 +40,16 @@ const Weather = (props: any) => {
     }, [props.apiData])
 
     return (
-        <div className = "contents">
+        <div className = {style.contents}>
             <button onClick = {() => setMetric(!metric)}>{metric? "Metric": "Customary"}</button>
 
-            {location != "" && <h2>{location}</h2>}
+            <div className = {style.heading}>
+                {location != "" && <h2>{location}</h2>}
+                {props.apiData && <h4>{date}: {time}</h4>}                
+            </div>
+
 
             <div className = "body">
-                {props.apiData && <h4>{date}: {time}</h4>}
                 {props.apiData && <WeatherCurrent apiData = {props.apiData} unit = {metric}/>}
                 {props.apiData && <WeatherHourly apiData = {props.apiData} unit = {metric}/>}
                 {props.apiData && <WeatherDaily apiData = {props.apiData} unit = {metric}/>}

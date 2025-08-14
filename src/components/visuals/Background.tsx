@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 /** The palette buckets we render */
 type TimeOfDay = "morning" | "afternoon" | "sunset" | "night";

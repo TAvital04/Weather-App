@@ -26,7 +26,7 @@ export const getStatus = (status: string) => {
 // Temperature
 const Temp = (props: any) => {
     const type = props.type
-    const temp = props.unit? props.temp: (props.temp * (9/5) + 32).toFixed(0)
+    const temp = props.unit? props.temp.toFixed(0): (props.temp * (9/5) + 32).toFixed(0)
     const unit = props.unit? "C": "F"
 
     return (
