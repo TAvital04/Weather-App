@@ -13,9 +13,7 @@ const App = () => {
 
   useEffect(() => {
     if (!apiData) return;
-    console.log("current:", apiData.current); // expect to see this twice in dev (StrictMode)
 
-    // refresh the data every 10 minutes (example)
     const reRenderData = async (loc: { lat: number; lon: number }) => {
       const res = await fetch(
         `https://api.openweathermap.org/data/3.0/onecall?lat=${loc.lat}&lon=${loc.lon}&units=metric&appid=${key}`

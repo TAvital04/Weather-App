@@ -68,18 +68,17 @@ const getHourlyWeather = (apiData: any) => {
 
 const WeatherHourlyElement = (props: any) => {
     return (
-        <div className = "contents-element">                
-            <h4>{renderUtils.getTime(props.element.time.time, props.element.time.timezone)}</h4>
-            <ul>
-                <li>{renderUtils.getStatus(props.element.weather.status)}</li>
-                <li>{renderUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</li>
-                <li>{renderUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</li>
-                <li>{renderUtils.getClouds(props.element.conditions.clouds)}</li>
-                <li>{renderUtils.getHumidity(props.element.conditions.humidity)}</li>
-                <li>{renderUtils.getPressure(props.element.conditions.pressure)}</li>
-                <li>{renderUtils.getUVIndex(props.element.conditions.uvIndex)}</li>
-                <li>{renderUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</li>
-            </ul>
+        <div className = {style.element}>                
+            <h4 className = {style.elementHeading}>{renderUtils.getTime(props.element.time.time, props.element.time.timezone)}</h4>
+            
+            <div className = {style.elementChild}>{renderUtils.getStatus(props.element.weather.status)}</div>
+            <div className = {style.elementChild}>{renderUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</div>
+            <div className = {style.elementChild}>{renderUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</div>
+            <div className = {style.elementChild}>{renderUtils.getClouds(props.element.conditions.clouds)}</div>
+            <div className = {style.elementChild}>{renderUtils.getHumidity(props.element.conditions.humidity)}</div>
+            <div className = {style.elementChild}>{renderUtils.getPressure(props.element.conditions.pressure)}</div>
+            <div className = {style.elementChild}>{renderUtils.getUVIndex(props.element.conditions.uvIndex)}</div>
+            <div className = {style.elementChild}>{renderUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</div>
         </div>
     )
 }
@@ -96,19 +95,15 @@ const WeatherHourly = (props: any) => {
     }, [props.apiData]);
 
     return (
-        <>
-            <div className = "contents">
-                <h3>Hourly Weather</h3>
+        <div className = {style.contents}>
+            <h3 className = {style.heading}>Hourly Weather</h3>
 
-                <div className = {style.body}>
-                    <ul>
-                        {data && data.list.map((element) => (                    
-                            <li key = {element.time.time}><WeatherHourlyElement element = {element} unit = {props.unit}/></li>
-                        ))}  
-                    </ul>
-                </div>
+            <div className = {style.body}>
+                {data && data.list.map((element) => (                    
+                    <WeatherHourlyElement key = {element.time.time} element = {element} unit = {props.unit}/>
+                ))}  
             </div>
-        </>
+        </div>
     )
 }
 

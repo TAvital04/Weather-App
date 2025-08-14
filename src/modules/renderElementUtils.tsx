@@ -15,7 +15,7 @@ export const getTime = (dateTime: number, timezone: string): string => {
 const Status = (props: any) => {
     return (
         <>
-            <h4>{props.status}</h4>
+            {props.status}
         </>
     )
 }

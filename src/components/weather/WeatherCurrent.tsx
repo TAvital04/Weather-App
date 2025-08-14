@@ -92,8 +92,9 @@ const WeatherCurrent = (props: any) => {
 
     return (
         <div className = {style.contents}>
-            <h3 className = "heading">Current Weather</h3>
-            <div className = "body">
+            <h3 className = {style.heading}>Current Weather</h3>
+            
+            <div className = {style.body}>
                 {data && <WeatherCurrentElement data = {data} unit = {props.unit}/>}
             </div>
         </div>

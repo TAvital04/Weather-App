@@ -1,12 +1,25 @@
-.body > ul {
+.contents {
+    border: 1px solid black;
+}
+
+.heading {
+    border: 1px solid black;
+}
+
+.body {
+    border: 1px solid black;
     display: flex;
     flex-direction: row;
-    margin-right: 1rem;
     overflow-x: auto;
 }
 
-.body > ul > li{
+.element {
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
+}
+
+.elementChild {
+    border: 1px solid black;
 }
