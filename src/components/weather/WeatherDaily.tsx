@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 
-import * as renderUtils from "../../modules/renderUtils.tsx"
+import * as renderElementUtils from "../../modules/renderElementUtils.tsx"
 
 import style from "../../styles/weatherDaily.module.css"
 
@@ -79,20 +79,20 @@ const getWeatherDaily = (apiData: any) => {
 const WeatherDailyElement = (props: any) => {
     return (
         <div className = {style.contentsElement}>
-            <h4>{renderUtils.getDate(props.element.time.time, props.element.time.timezone)}</h4>
+            <h4>{renderElementUtils.getDate(props.element.time.time, props.element.time.timezone)}</h4>
 
             <ul>
-                <li>{renderUtils.getStatus(props.element.weather.status)}</li>
-                <li>{renderUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</li>
-                <li>{renderUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</li>
-                <li>{renderUtils.getRain(props.element.conditions.rain, props.unit)}</li>
-                <li>{renderUtils.getSnow(props.element.conditions.snow, props.unit)}</li>
-                <li>{renderUtils.getClouds(props.element.conditions.clouds)}</li>
-                <li>{renderUtils.getHumidity(props.element.conditions.humidity)}</li>
-                <li>{renderUtils.getPressure(props.element.conditions.pressure)}</li>
-                <li>{renderUtils.getUVIndex(props.element.conditions.uvIndex)}</li>
-                <li>{renderUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</li>
-                <li>{renderUtils.getSun(props.element.conditions.sun.rise, props.element.conditions.sun.set, props.element.conditions.timezone)}</li>
+                <li>{renderElementUtils.getStatus(props.element.weather.status)}</li>
+                <li>{renderElementUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</li>
+                <li>{renderElementUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</li>
+                <li>{renderElementUtils.getRain(props.element.conditions.rain, props.unit)}</li>
+                <li>{renderElementUtils.getSnow(props.element.conditions.snow, props.unit)}</li>
+                <li>{renderElementUtils.getClouds(props.element.conditions.clouds)}</li>
+                <li>{renderElementUtils.getHumidity(props.element.conditions.humidity)}</li>
+                <li>{renderElementUtils.getPressure(props.element.conditions.pressure)}</li>
+                <li>{renderElementUtils.getUVIndex(props.element.conditions.uvIndex)}</li>
+                <li>{renderElementUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</li>
+                <li>{renderElementUtils.getSun(props.element.conditions.sun.rise, props.element.conditions.sun.set, props.element.conditions.timezone)}</li>
             </ul>
         </div>
     )

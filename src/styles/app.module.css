@@ -1,11 +1,12 @@
 .contents {
-    border: solid black 1px;
     margin-top: 10rem;
     margin-bottom: 10rem;
     padding: 2rem;
     padding-top: 1rem;
 
     border-radius: 1rem;
+
+    background-color: white;
 }
 @media (max-width: 1000px) {
     .contents {
@@ -27,6 +28,34 @@ input, button {
     margin: .25rem;
 }
 
-.body {
-    margin-left: 1rem;
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.contents {
+  position: relative;
+  z-index: 1;
+}
+
+::-webkit-scrollbar {
+    background: transparent;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: darkgray;
 }

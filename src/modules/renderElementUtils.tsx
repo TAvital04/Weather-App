@@ -69,14 +69,6 @@ export const getSnow = (snow: number, unit: boolean) => {
     return <Snow snow = {snow} unit = {unit}/>
 }
 
-export const getRainSnow = (rain: number, snow: number, unit: boolean) => {
-    if(snow > 0) {
-        return <Snow snow = {snow} unit = {unit}/>
-    } else {
-        return <Rain rain = {rain} unit = {unit}/>
-    }
-}
-
 //Clouds
 const Clouds = (props: any) => {
     return (

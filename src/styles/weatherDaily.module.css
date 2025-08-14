@@ -1,12 +1,11 @@
 .body > ul {
     display: flex;
     flex-direction: row;
-    margin-right: 1rem;
     overflow-x: auto;
 }
 
 .body > ul > li{
     display: flex;
     flex-direction: column;
-    min-width: 75%;
+    flex: 0 0 auto;
 }

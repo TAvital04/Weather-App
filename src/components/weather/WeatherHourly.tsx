@@ -70,7 +70,6 @@ const WeatherHourlyElement = (props: any) => {
     return (
         <div className = "contents-element">                
             <h4>{renderUtils.getTime(props.element.time.time, props.element.time.timezone)}</h4>
-{console.log(props)|| true}
             <ul>
                 <li>{renderUtils.getStatus(props.element.weather.status)}</li>
                 <li>{renderUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</li>

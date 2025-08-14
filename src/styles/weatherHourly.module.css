@@ -8,5 +8,5 @@
 .body > ul > li{
     display: flex;
     flex-direction: column;
-    min-width: 75%;
+    flex: 0 0 auto;
 }

@@ -6,7 +6,7 @@ import SearchZip from "./SearchZip.tsx"
 import style from "../../styles/search.module.css"
 
 const Search = (props: any) => {
-    const [coords, setCoords] = useState(true)
+    const [coords, setCoords] = useState(false)
     return (
         <>
             <div className = {style.contents}>

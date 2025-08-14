@@ -2,6 +2,8 @@ import {useState, useEffect} from "react"
 
 import * as renderUtils from "../../modules/renderUtils.tsx"
 
+import style from "../../styles/weatherCurrent.module.css"
+
 type Data = {
     weather: {
         status: string
@@ -32,20 +34,30 @@ type Data = {
 
 const WeatherCurrentElement = (props: any) => {
     return (
-        <ul>
-            <li>{renderUtils.getStatus(props.data.weather.status)}</li>
-            <li>{renderUtils.getTemp(props.data.conditions.temp, props.unit, "Temperature")}</li>
-            <li>{renderUtils.getTemp(props.data.conditions.feelsLike, props.unit, "Feels Like")}</li>
-            <li>{renderUtils.getRain(props.data.conditions.rain, props.unit)}</li>
-            <li>{renderUtils.getSnow(props.data.conditions.snow, props.unit)}</li>
-            <li>{renderUtils.getClouds(props.data.conditions.clouds)}</li>
-            <li>{renderUtils.getHumidity(props.data.conditions.humidity)}</li>
-            <li>{renderUtils.getPressure(props.data.conditions.pressure)}</li>
-            <li>{renderUtils.getUVIndex(props.data.conditions.uvIndex)}</li>
-            <li>{renderUtils.getVisibility(props.data.conditions.visibility, props.unit)}</li>
-            <li>{renderUtils.getWind(props.data.conditions.wind.speed, props.data.conditions.wind.direction, props.unit)}</li>
-            <li>{renderUtils.getSun(props.data.conditions.sun.rise, props.data.conditions.sun.set, props.data.conditions.sun.timezone)}</li>
-        </ul>
+        <>
+            <div className = {style.main}>
+                {renderUtils.getTemp(props.data.conditions.temp, props.unit, "Temperature")}
+                {renderUtils.getStatus(props.data.weather.status)}
+                <div className = "main-sub">
+                    <div className = "main-sub-child">{renderUtils.getTemp(props.data.conditions.feelsLike, props.unit, "Feels Like")}</div>
+                    <div className = "main-sub-child">{renderUtils.getRainSnow(props.data.conditions.rain, props.data.conditions.snow, props.unit)}</div>
+                    <div className = "main-sub-child">{renderUtils.getUVIndex(props.data.conditions.uvIndex)}</div>
+                </div>
+            </div>
+
+            <div className = "other">
+                <h4>Other</h4>
+
+                <ul className = "other">
+                    <li>{renderUtils.getClouds(props.data.conditions.clouds)}</li>
+                    <li>{renderUtils.getHumidity(props.data.conditions.humidity)}</li>
+                    <li>{renderUtils.getPressure(props.data.conditions.pressure)}</li>
+                    <li>{renderUtils.getVisibility(props.data.conditions.visibility, props.unit)}</li>
+                    <li>{renderUtils.getWind(props.data.conditions.wind.speed, props.data.conditions.wind.direction, props.unit)}</li>
+                    <li>{renderUtils.getSun(props.data.conditions.sun.rise, props.data.conditions.sun.set, props.data.conditions.sun.timezone)}</li>
+                </ul>                
+            </div>
+        </>
     )
 }
 
