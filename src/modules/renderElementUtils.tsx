@@ -159,10 +159,8 @@ const Wind = (props: any) => {
     return (
         <>
             Wind:
-            <ul>
-                <li>Speed = {windSpeed} {unit}</li>
-                <li>Direction = {direction}</li>
-            </ul>
+                Speed = {windSpeed} {unit}
+                Direction = {direction}
         </>
     )
 }
@@ -177,10 +175,8 @@ const Sun = (props: any) => {
     return (
         <>
             Sun
-            <ul>
-                <li>Rises: {sunrise}</li>
-                <li>Sets: {sunset}</li>
-            </ul>
+                Rises: {sunrise}
+                Sets: {sunset}
         </>
     )
 }

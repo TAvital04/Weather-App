@@ -78,21 +78,20 @@ const getWeatherDaily = (apiData: any) => {
 
 const WeatherDailyElement = (props: any) => {
     return (
-        <div className = {style.contentsElement}>
-            <h4>{renderElementUtils.getDate(props.element.time.time, props.element.time.timezone)}</h4>
-            <ul>
-                <li>{renderElementUtils.getStatus(props.element.weather.status)}</li>
-                <li>{renderElementUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</li>
-                <li>{renderElementUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</li>
-                <li>{renderElementUtils.getRain(props.element.conditions.rain, props.unit)}</li>
-                <li>{renderElementUtils.getSnow(props.element.conditions.snow, props.unit)}</li>
-                <li>{renderElementUtils.getClouds(props.element.conditions.clouds)}</li>
-                <li>{renderElementUtils.getHumidity(props.element.conditions.humidity)}</li>
-                <li>{renderElementUtils.getPressure(props.element.conditions.pressure)}</li>
-                <li>{renderElementUtils.getUVIndex(props.element.conditions.uvIndex)}</li>
-                <li>{renderElementUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</li>
-                <li>{renderElementUtils.getSun(props.element.conditions.sun.rise, props.element.conditions.sun.set, props.element.conditions.timezone)}</li>
-            </ul>
+        <div className = {style.element}>
+            <h4 className = {style.elementHeading}>{renderElementUtils.getDate(props.element.time.time, props.element.time.timezone)}</h4>
+            
+            <div className = {style.elementChild}>{renderElementUtils.getStatus(props.element.weather.status)}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getRain(props.element.conditions.rain, props.unit)}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getSnow(props.element.conditions.snow, props.unit)}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getClouds(props.element.conditions.clouds)}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getHumidity(props.element.conditions.humidity)}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getPressure(props.element.conditions.pressure)}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getUVIndex(props.element.conditions.uvIndex)}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</div>
+            <div className = {style.elementChild}>{renderElementUtils.getSun(props.element.conditions.sun.rise, props.element.conditions.sun.set, props.element.conditions.timezone)}</div>
         </div>
     )
 }
@@ -109,15 +108,13 @@ const WeatherDaily = (props: any) => {
     }, [props.apiData]);
 
     return (
-        <div className = "contents">
-            <h3>Daily Weather</h3>
+        <div className = {style.contents}>
+            <h3 className = {style.heading}>Daily Weather</h3>
 
             <div className = {style.body}>
-                <ul>
-                    {data && data.list.map((element) => (                    
-                        <li key = {element.time.time}><WeatherDailyElement element = {element} unit = {props.unit}/></li>
-                    ))}                    
-                </ul>
+                {data && data.list.map((element) => (                    
+                    <WeatherDailyElement key = {element.time.time} element = {element} unit = {props.unit}/>
+                ))}                    
             </div>
         </div>
     )
