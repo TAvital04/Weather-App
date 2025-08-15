@@ -1,3 +1,21 @@
+.subContents {
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .subContents {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 6), 255)
+        clamp(0, calc(g + var(--tone-step) * 6), 255)
+        clamp(0, calc(b + var(--tone-step) * 6), 255)
+    );
+}
+:root[data-dark-mode = "light"] .subContents {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 2), 255)
+        clamp(0, calc(g + var(--tone-step) * 2), 255)
+        clamp(0, calc(b + var(--tone-step) * 2), 255)
+    );
+}
+
 .heading {
     border-radius: 1rem;
 }
@@ -7,4 +25,25 @@
         clamp(0, calc(g + var(--tone-step) * 3), 255)
         clamp(0, calc(b + var(--tone-step) * 3), 255)
     );
+}
+:root[data-dark-mode = "light"] .heading {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r - var(--tone-step)), 255)
+        clamp(0, calc(g - var(--tone-step)), 255)
+        clamp(0, calc(b - var(--tone-step)), 255)
+    );
+}
+
+.subHeading {
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .subHeading {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 5), 255)
+        clamp(0, calc(g + var(--tone-step) * 5), 255)
+        clamp(0, calc(b + var(--tone-step) * 5), 255)
+    );
+}
+:root[data-dark-mode = "light"] .subHeading {
+    background-color: var(--sky-bg)
 }

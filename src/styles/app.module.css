@@ -8,8 +8,6 @@
     padding: 2rem;
 
     border-radius: 1rem;
-
-    background-color: white;
 }
 @media (max-width: 1000px) {
     .contents {
@@ -32,6 +30,14 @@
         clamp(0, calc(b - var(--tone-step)), 255)
     );
 }
+:root[data-dark-mode = "light"] .contents {
+    border-radius: 1rem;
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r - var(--tone-step)), 255)
+        clamp(0, calc(g - var(--tone-step)), 255)
+        clamp(0, calc(b - var(--tone-step)), 255)
+    );
+}
 
 .inPadding {
     border-radius: 1rem;
@@ -43,6 +49,14 @@
         clamp(0, calc(b), 255)
     );
 }
+:root[data-dark-mode = "light"] .contents {
+    border-radius: 1rem;
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r - var(--tone-step) * 4), 255)
+        clamp(0, calc(g - var(--tone-step) * 4), 255)
+        clamp(0, calc(b - var(--tone-step) * 4), 255)
+    );
+}
 
 :root[data-dark-mode = "dark"] .title {
     border-radius: 1rem;
@@ -52,9 +66,13 @@
         clamp(0, calc(b), 255)
     );
 }
-
-:root[data-dark-mode = "dark"] .body {
-    
+:root[data-dark-mode = "light"] .contents {
+    border-radius: 1rem;
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r - var(--tone-step) * 4), 255)
+        clamp(0, calc(g - var(--tone-step) * 4), 255)
+        clamp(0, calc(b - var(--tone-step) * 4), 255)
+    );
 }
 
 input, button {

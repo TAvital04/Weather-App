@@ -8,6 +8,13 @@
         clamp(0, calc(b + var(--tone-step) * 2), 255)
     );
 }
+:root[data-dark-mode = "light"] .contents {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r - var(--tone-step) * 2), 255)
+        clamp(0, calc(g - var(--tone-step) * 2), 255)
+        clamp(0, calc(b - var(--tone-step) * 2), 255)
+    );
+}
 
 .body {
     display: flex;
@@ -29,6 +36,13 @@
         clamp(0, calc(b + var(--tone-step) * 3), 255)
     );
 }
+:root[data-dark-mode = "light"] .element {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r - var(--tone-step)), 255)
+        clamp(0, calc(g - var(--tone-step)), 255)
+        clamp(0, calc(b - var(--tone-step)), 255)
+    );
+}
 
 .elementChild {
     border-radius: 1rem;
@@ -38,5 +52,12 @@
         clamp(0, calc(r + var(--tone-step) * 5), 255)
         clamp(0, calc(g + var(--tone-step) * 5), 255)
         clamp(0, calc(b + var(--tone-step) * 5), 255)
+    );
+}
+:root[data-dark-mode = "light"] .elementChild {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step)), 255)
+        clamp(0, calc(g + var(--tone-step)), 255)
+        clamp(0, calc(b + var(--tone-step)), 255)
     );
 }

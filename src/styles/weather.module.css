@@ -1,7 +1,3 @@
-.contents {
-
-}
-
 .heading {
     border-radius: 1rem;
     border: 1px solid transparent;
@@ -11,5 +7,12 @@
         clamp(0, calc(r + var(--tone-step)), 255)
         clamp(0, calc(g + var(--tone-step)), 255)
         clamp(0, calc(b + var(--tone-step)), 255)
+    );
+}
+:root[data-dark-mode = "light"] .heading {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r - var(--tone-step) * 3), 255)
+        clamp(0, calc(g - var(--tone-step) * 3), 255)
+        clamp(0, calc(b - var(--tone-step) * 3), 255)
     );
 }
