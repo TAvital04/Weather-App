@@ -1,35 +1,72 @@
 *,
 *::before,
 *::after { box-sizing: border-box; }
-   
-.contents { 
-  border: 1px solid black; 
+
+.heading {
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .heading {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 2), 255)
+        clamp(0, calc(g + var(--tone-step) * 2), 255)
+        clamp(0, calc(b + var(--tone-step) * 2), 255)
+    );
+}
+
+.contents {
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .contents {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 2), 255)
+        clamp(0, calc(g + var(--tone-step) * 2), 255)
+        clamp(0, calc(b + var(--tone-step) * 2), 255)
+    );
 }
 
 .main {
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    border-radius: 1rem;  
 }
 
 .mainChild {
   aspect-ratio: 1 / 1;
-  border: 1px solid black;
   vertical-align: middle;
 
   flex: 1 1 33.333%;
+
+  border-radius: 1rem;
+}
+
+:root[data-dark-mode = "dark"] .top {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 3), 255)
+        clamp(0, calc(g + var(--tone-step) * 3), 255)
+        clamp(0, calc(b + var(--tone-step) * 3), 255)
+    ); 
 }
 
 .mainSub {
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+
+    border-radius: 1rem;
 }
 
 .mainSubChild {
-    border: 1px solid black;
     flex: 1;
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .mainSubChild {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 3), 255)
+        clamp(0, calc(g + var(--tone-step) * 3), 255)
+        clamp(0, calc(b + var(--tone-step) * 3), 255)
+    ); 
 }
 
 @media (max-width: 1000px) {
@@ -42,15 +79,19 @@
         display: flex;
         flex-direction: row;
     }
-    .mainSubChild {
-        border: 1px solid black;
-    }
 }
 
 .other {
-    border: 1px solid black;
+    border-radius: 1rem;
 }
 
 .otherChild {
-    border: 1px solid black;
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .otherChild {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 3), 255)
+        clamp(0, calc(g + var(--tone-step) * 3), 255)
+        clamp(0, calc(b + var(--tone-step) * 3), 255)
+    ); 
 }

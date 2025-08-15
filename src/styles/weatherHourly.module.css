@@ -1,25 +1,42 @@
 .contents {
-    border: 1px solid black;
+    border-radius: 1rem;
 }
-
-.heading {
-    border: 1px solid black;
+:root[data-dark-mode = "dark"] .contents {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 2), 255)
+        clamp(0, calc(g + var(--tone-step) * 2), 255)
+        clamp(0, calc(b + var(--tone-step) * 2), 255)
+    );
 }
 
 .body {
-    border: 1px solid black;
     display: flex;
     flex-direction: row;
     overflow-x: auto;
 }
 
 .element {
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
-    flex: 0 0 auto;
+    flex: 0 0 33.3333%;
+
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .element {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 3), 255)
+        clamp(0, calc(g + var(--tone-step) * 3), 255)
+        clamp(0, calc(b + var(--tone-step) * 3), 255)
+    );
 }
 
 .elementChild {
-    border: 1px solid black;
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .elementChild {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 4), 255)
+        clamp(0, calc(g + var(--tone-step) * 4), 255)
+        clamp(0, calc(b + var(--tone-step) * 4), 255)
+    );
 }

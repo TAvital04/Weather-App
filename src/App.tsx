@@ -4,13 +4,14 @@ import Search from "./components/search/Search";
 import Weather from "./components/weather/Weather";
 import Background from "./components/visuals/Background";
 
+import mainStyle from "./styles/main.module.css"
 import style from "./styles/app.module.css";
 
 const key = import.meta.env.VITE_API_KEY as string;
 
 const App = () => {
   const [apiData, setApiData] = useState<any>(null);
-
+  
   useEffect(() => {
     if (!apiData) return;
 
@@ -29,6 +30,20 @@ const App = () => {
     return () => clearInterval(interval);
   }, [apiData]);
 
+  useEffect(() => {
+    if(apiData) {
+      let darkMode
+      
+      if(apiData.current.dt < apiData.current.sunrise || apiData.current.dt > apiData.current.sunset) {
+        darkMode = "dark"
+      } else {
+        darkMode = "light"
+      }
+
+      document.documentElement.dataset.darkMode = darkMode
+    }
+  }, [apiData])
+
   return (
     <>
       <div className = {style.background}>
@@ -43,11 +58,13 @@ const App = () => {
         )}
       </div>
       <div className={style.contents}>
-        <h1>Weather</h1>
+        <div className = {style.inPadding}>
+          <h1 className = {`${style.title} ${mainStyle.heading}`}>Weather</h1>
 
-        <div className={style.body}>
-          <Search setApiData={setApiData} />
-          {apiData && <Weather apiData={apiData} />}
+          <div className={style.body}>
+            <Search setApiData={setApiData} />
+            {apiData && <Weather apiData={apiData} />}
+          </div>
         </div>
       </div>
     </>

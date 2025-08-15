@@ -6,6 +6,7 @@ import WeatherDaily from "./WeatherDaily.tsx"
 
 import * as renderUtils from "../../modules/renderUtils.tsx"
 
+import mainStyle from "../../styles/main.module.css"
 import style from "../../styles/weather.module.css"
 
 const key = import.meta.env.VITE_API_KEY

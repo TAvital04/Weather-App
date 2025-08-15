@@ -33,8 +33,8 @@ export interface WeatherSceneProps {
 
 function classifyWeather(c: number): WeatherType {
   if (c >= 200 && c < 300) return "storm";
-  if (c >= 300 && c < 600) return "rain";   // drizzle + most rain
-  if (c === 511) return "rain";             // freezing rain (customize later)
+  if (c >= 300 && c < 600) return "rain"; // drizzle + most rain
+  if (c === 511) return "rain"; // freezing rain (customize later)
   if (c >= 600 && c < 700) return "snow";
   if (c >= 700 && c < 800) return "mist";
   if (c === 800) return "clear";
@@ -46,12 +46,46 @@ function classifyWeather(c: number): WeatherType {
 
 function getGradientColors(tod: TimeOfDay): [string, string] {
   const skies: Record<TimeOfDay, [string, string]> = {
-    morning:   ["#4facfe", "#00f2fe"], // fresh blue
+    morning: ["#4facfe", "#00f2fe"], // fresh blue
     afternoon: ["#2193b0", "#6dd5ed"], // bright blue
-    sunset:    ["#ff8a65", "#4e342e"], // orange to deep dusk
-    night:     ["#0f2027", "#203a43"], // dark blues
+    sunset: ["#ff8a65", "#4e342e"], // orange to deep dusk
+    night: ["#0f2027", "#203a43"], // dark blues
   };
   return skies[tod];
+}
+
+/** Solid sky color used by both canvas and CSS variable */
+function getSkyColor(tod: TimeOfDay, type: WeatherType): string {
+  const isNight = tod === "night";
+
+  const NIGHT: Record<WeatherType, string> = {
+    clear: "#0b1020", // deep blue-black
+    clouds: "#111827", // very dark slate
+    mist: "#0f172a", // inky blue-gray
+    storm: "#0a0f14", // almost black
+    rain: "#0a0f14",
+    snow: "#0b1725", // cold dark blue
+  };
+
+  const DAY: Partial<Record<WeatherType, string>> = {
+    storm: "#263238",
+    clouds: "#cfd8dc",
+    mist: "#b0bec5",
+  };
+
+  if (isNight) return NIGHT[type] ?? NIGHT.clear;
+  const [c1] = getGradientColors(tod); // daytime base
+  return DAY[type] ?? c1;
+}
+
+/** Pick a readable foreground for the given hex bg (simple YIQ heuristic) */
+function foregroundFor(bgHex: string): string {
+  const hex = bgHex.replace("#", "");
+  const r = parseInt(hex.substring(0, 2), 16) || 0;
+  const g = parseInt(hex.substring(2, 4), 16) || 0;
+  const b = parseInt(hex.substring(4, 6), 16) || 0;
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 150 ? "#111827" : "#e5e7eb"; // dark text on light bg, light text on dark bg
 }
 
 /**
@@ -65,13 +99,15 @@ function getGradientColors(tod: TimeOfDay): [string, string] {
  *   - Afternoon: everything else that’s daytime
  */
 function timeOfDayFromAstronomy(args: {
-  dt?: number; sunrise?: number; sunset?: number; timezoneOffset?: number;
+  dt?: number;
+  sunrise?: number;
+  sunset?: number;
+  timezoneOffset?: number;
 }): TimeOfDay {
   const { dt, sunrise, sunset, timezoneOffset } = args;
 
   // Fallback if we’re missing pieces
   if (!dt || !sunrise || !sunset) {
-    // Try a coarse local-hour-based guess if we at least have dt/offset
     if (dt && typeof timezoneOffset === "number") {
       const localMs = (dt + timezoneOffset) * 1000;
       const h = new Date(localMs).getHours();
@@ -90,20 +126,18 @@ function timeOfDayFromAstronomy(args: {
   const sunriseLocal = (sunrise + offset) * 1000;
   const sunsetLocal = (sunset + offset) * 1000;
 
-  const GOLDEN_BEFORE_SUNSET = 60 * 60 * 1000;  // 60m
-  const GOLDEN_AFTER_SUNSET  = 30 * 60 * 1000;  // 30m
-  const MORNING_BEFORE_SR    = 45 * 60 * 1000;  // 45m
-  const MORNING_AFTER_SR     = 90 * 60 * 1000;  // 90m
+  const GOLDEN_BEFORE_SUNSET = 60 * 60 * 1000; // 60m
+  const GOLDEN_AFTER_SUNSET = 30 * 60 * 1000; // 30m
+  const MORNING_BEFORE_SR = 45 * 60 * 1000; // 45m
+  const MORNING_AFTER_SR = 90 * 60 * 1000; // 90m
 
   const morningStart = sunriseLocal - MORNING_BEFORE_SR;
-  const morningEnd   = sunriseLocal + MORNING_AFTER_SR;
+  const morningEnd = sunriseLocal + MORNING_AFTER_SR;
 
-  const sunsetStart  = sunsetLocal - GOLDEN_BEFORE_SUNSET;
-  const sunsetEnd    = sunsetLocal + GOLDEN_AFTER_SUNSET;
+  const sunsetStart = sunsetLocal - GOLDEN_BEFORE_SUNSET;
+  const sunsetEnd = sunsetLocal + GOLDEN_AFTER_SUNSET;
 
-  const isNight =
-    dtLocal < morningStart ||
-    dtLocal > sunsetEnd;
+  const isNight = dtLocal < morningStart || dtLocal > sunsetEnd;
 
   if (isNight) return "night";
   if (dtLocal >= morningStart && dtLocal <= morningEnd) return "morning";
@@ -171,25 +205,8 @@ export default function WeatherScene({
   /* --------------------------------- Drawing ---------------------------------- */
 
   function drawSky(ctx: CanvasRenderingContext2D, type: WeatherType) {
-    const [c1, c2] = getGradientColors(effectiveTimeOfDay);
-    const g = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
-
-    if (type === "storm") {
-      // storm palette overrides daytime palette for drama
-      g.addColorStop(0, "#37474f");
-      g.addColorStop(1, "#263238");
-    } else if (type === "clouds") {
-      g.addColorStop(0, c1);
-      g.addColorStop(1, "#cfd8dc");
-    } else if (type === "mist") {
-      g.addColorStop(0, "#b0bec5");
-      g.addColorStop(1, "#eceff1");
-    } else {
-      g.addColorStop(0, c1);
-      g.addColorStop(1, c2);
-    }
-
-    ctx.fillStyle = g;
+    const color = getSkyColor(effectiveTimeOfDay, type);
+    ctx.fillStyle = color;
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   }
 
@@ -260,7 +277,15 @@ export default function WeatherScene({
 
   /* --------------------------------- Effects ---------------------------------- */
 
-  // Resize + (re)seed particles on mount/resize and when palette bucket changes (so trails don’t smear).
+  // Publish the sky color to CSS as --sky-bg (and a readable --sky-fg)
+  useEffect(() => {
+    const type = weatherTypeRef.current;
+    const color = getSkyColor(effectiveTimeOfDay, type);
+    document.documentElement.style.setProperty("--sky-bg", color);
+    document.documentElement.style.setProperty("--sky-fg", foregroundFor(color));
+  }, [effectiveTimeOfDay, code]);
+
+  // Resize + (re)seed particles on mount/resize and when palette bucket changes
   useEffect(() => {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
@@ -308,7 +333,7 @@ export default function WeatherScene({
           drawMist(ctx);
           break;
         default:
-          // clear / clouds -> just sky gradient
+          // clear / clouds -> just sky
           break;
       }
       rafRef.current = requestAnimationFrame(loop);
@@ -349,7 +374,7 @@ export default function WeatherScene({
         width: "100%",
         height: fillParent ? "100%" : "100vh",
         overflow: "hidden",
-        background: "black",
+        background: "black", // fallback while canvas paints
       }}
       aria-label="Animated weather scene"
     >

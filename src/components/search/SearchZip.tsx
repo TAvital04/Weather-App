@@ -2,6 +2,7 @@ import {useState} from "react"
 
 const key = import.meta.env.VITE_API_KEY
 
+import mainStyle from "../../styles/main.module.css"
 import style from "../../styles/searchZip.module.css"
 
 const SearchZip = (props: any) => {

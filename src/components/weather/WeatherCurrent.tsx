@@ -2,6 +2,7 @@ import {useState, useEffect} from "react"
 
 import * as renderUtils from "../../modules/renderUtils.tsx"
 
+import mainStyle from "../../styles/main.module.css"
 import style from "../../styles/weatherCurrent.module.css"
 
 type Data = {
@@ -92,8 +93,8 @@ const WeatherCurrent = (props: any) => {
 
     return (
         <div className = {style.contents}>
-            <h3 className = {style.heading}>Current Weather</h3>
-            
+            <h3 className = {`${style.heading} ${mainStyle.heading}`}>Current Weather</h3>
+
             <div className = {style.body}>
                 {data && <WeatherCurrentElement data = {data} unit = {props.unit}/>}
             </div>

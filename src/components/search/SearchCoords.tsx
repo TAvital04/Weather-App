@@ -2,6 +2,7 @@ import {useState} from "react"
 
 const key = import.meta.env.VITE_API_KEY
 
+import mainStyle from "../../styles/main.module.css"
 import style from "../../styles/searchCoords.module.css"
 
 const SearchCoords = (props: any) => {

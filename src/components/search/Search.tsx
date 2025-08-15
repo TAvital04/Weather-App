@@ -3,6 +3,7 @@ import {useState} from "react"
 import SearchCoords from "./SearchCoords.tsx"
 import SearchZip from "./SearchZip.tsx"
 
+import mainStyle from "../../styles/main.module.css"
 import style from "../../styles/search.module.css"
 
 const Search = (props: any) => {
@@ -10,9 +11,9 @@ const Search = (props: any) => {
     return (
         <>
             <div className = {style.contents}>
-                <h2>Search</h2>
+                <h2 className = {`${style.heading} ${mainStyle.heading}`}>Search</h2>
                 
-                <div className = {style.search}>
+                <div className = {style.body}>
                     <button onClick={() => setCoords(!coords)}>
                         {coords? "Search By Zip": "Search By Coordinates"}
                     </button>

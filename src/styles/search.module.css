@@ -1,3 +1,43 @@
-.search {
-    margin-left: 1rem;
+.contents {
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .contents{
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 2), 255)
+        clamp(0, calc(g + var(--tone-step) * 2), 255)
+        clamp(0, calc(b + var(--tone-step) * 2), 255)
+    );
+}
+
+.heading {
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .heading {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step)), 255)
+        clamp(0, calc(g + var(--tone-step)), 255)
+        clamp(0, calc(b + var(--tone-step)), 255)
+    );
+}
+
+button {
+    border: none;
+}
+:root[data-dark-mode = "dark"] button {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 3), 255)
+        clamp(0, calc(g + var(--tone-step) * 3), 255)
+        clamp(0, calc(b + var(--tone-step) * 3), 255)
+    );
+}
+
+input {
+    border: none;
+}
+:root[data-dark-mode = "dark"] input {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step) * 4), 255)
+        clamp(0, calc(g + var(--tone-step) * 4), 255)
+        clamp(0, calc(b + var(--tone-step) * 4), 255)
+    );
 }

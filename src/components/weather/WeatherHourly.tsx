@@ -2,6 +2,7 @@ import {useState, useEffect} from "react"
 
 import * as renderUtils from "../../modules/renderUtils.tsx"
 
+import mainStyle from "../../styles/main.module.css"
 import style from "../../styles/weatherHourly.module.css"
 
 type ListElement = {
@@ -96,7 +97,7 @@ const WeatherHourly = (props: any) => {
 
     return (
         <div className = {style.contents}>
-            <h3 className = {style.heading}>Hourly Weather</h3>
+            <h3 className = {`${style.heading} ${mainStyle.heading}`}>Hourly Weather</h3>
 
             <div className = {style.body}>
                 {data && data.list.map((element) => (                    

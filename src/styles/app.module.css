@@ -1,8 +1,11 @@
+.background {
+    z-index: -1;
+}
+
 .contents {
     margin-top: 10rem;
     margin-bottom: 10rem;
     padding: 2rem;
-    padding-top: 1rem;
 
     border-radius: 1rem;
 
@@ -21,10 +24,41 @@
         margin-right: 20%;
     }
 }
+:root[data-dark-mode = "dark"] .contents {
+    border-radius: 1rem;
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r - var(--tone-step)), 255)
+        clamp(0, calc(g - var(--tone-step)), 255)
+        clamp(0, calc(b - var(--tone-step)), 255)
+    );
+}
+
+.inPadding {
+    border-radius: 1rem;
+}
+:root[data-dark-mode = "dark"] .inPadding {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r), 255)
+        clamp(0, calc(g), 255)
+        clamp(0, calc(b), 255)
+    );
+}
+
+:root[data-dark-mode = "dark"] .title {
+    border-radius: 1rem;
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r), 255)
+        clamp(0, calc(g), 255)
+        clamp(0, calc(b), 255)
+    );
+}
+
+:root[data-dark-mode = "dark"] .body {
+    
+}
 
 input, button {
     border-radius: 3rem;
-    border: 1px solid black;
     margin: .25rem;
 }
 

@@ -1,7 +1,15 @@
 .contents {
-    border: 1px solid black;
+
 }
 
 .heading {
-    border: 1px solid black;
+    border-radius: 1rem;
+    border: 1px solid transparent;
+}
+:root[data-dark-mode = "dark"] .heading {
+    background-color: rgb(from var(--sky-bg)
+        clamp(0, calc(r + var(--tone-step)), 255)
+        clamp(0, calc(g + var(--tone-step)), 255)
+        clamp(0, calc(b + var(--tone-step)), 255)
+    );
 }

@@ -1,0 +1,33 @@
+:root {
+  /* JS sets --sky-bg dynamically; provide a fallback */
+  --sky-bg: #0b1020;
+  --sky-fg: #e5e7eb;
+
+  /* one “hex step” ≈ 17 decimal (0x11) so AA + 11 = BB */
+  --tone-step: 17;
+
+  /* Derived tones relative to --sky-bg */
+  --sky-bg-l1: rgb(from var(--sky-bg)
+    clamp(0, calc(r + var(--tone-step)), 255)
+    clamp(0, calc(g + var(--tone-step)), 255)
+    clamp(0, calc(b + var(--tone-step)), 255)
+  );
+
+  --sky-bg-d1: rgb(from var(--sky-bg)
+    clamp(0, calc(r - var(--tone-step)), 255)
+    clamp(0, calc(g - var(--tone-step)), 255)
+    clamp(0, calc(b - var(--tone-step)), 255)
+  );
+
+  --sky-bg-d2: rgb(from var(--sky-bg)
+    clamp(0, calc(r - (var(--tone-step) * 2)), 255)
+    clamp(0, calc(g - (var(--tone-step) * 2)), 255)
+    clamp(0, calc(b - (var(--tone-step) * 2)), 255)
+  );
+}
+
+.heading {
+    margin: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
