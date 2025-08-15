@@ -35,8 +35,8 @@
 }
 :root[data-dark-mode = "dark"] .elementChild {
     background-color: rgb(from var(--sky-bg)
-        clamp(0, calc(r + var(--tone-step) * 4), 255)
-        clamp(0, calc(g + var(--tone-step) * 4), 255)
-        clamp(0, calc(b + var(--tone-step) * 4), 255)
+        clamp(0, calc(r + var(--tone-step) * 5), 255)
+        clamp(0, calc(g + var(--tone-step) * 5), 255)
+        clamp(0, calc(b + var(--tone-step) * 5), 255)
     );
 }

@@ -17,9 +17,9 @@ export const getTime = (dateTime: number, timezone: string): string => {
 const Status = (props: any) => {
     return (
         <div className = {style.contents}>
-            <div className = {style.heading}>{props.status}</div>
+            <div className = {style.heading}>Status</div>
             
-            <div className = {style.body}></div>
+            <div className = {style.body}>{props.status}</div>
         </div>
     )
 }
