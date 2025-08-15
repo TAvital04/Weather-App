@@ -1,3 +1,5 @@
+import style from "../styles/renderUtils.module.css"
+
 //Date and time
 export const getDate = (dateTime: number, timezone: string): string => {
     return new Date(dateTime * 1000).toLocaleDateString("en-US", {
@@ -14,9 +16,11 @@ export const getTime = (dateTime: number, timezone: string): string => {
 // Status
 const Status = (props: any) => {
     return (
-        <>
-            {props.status}
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>{props.status}</div>
+            
+            <div className = {style.body}></div>
+        </div>
     )
 }
 export const getStatus = (status: string) => {
@@ -30,39 +34,45 @@ const Temp = (props: any) => {
     const unit = props.unit? "C": "F"
 
     return (
-        <>
-            {type} = {temp} {unit}
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>{type}</div>
+            
+            <div className = {style.body}>{temp} {unit}</div>
+        </div>
     )
 }
 export const getTemp = (temp: number, unit: boolean, type: string) => {
     return <Temp temp = {temp} unit = {unit} type = {type}/>
 }
 
-// Rain
+// Rain and snow
 const Rain = (props: any) => {
     const rain = props.unit? (props.rain * 24).toFixed(1): ((props.rain * 24) / 25.4).toFixed(1)
     const unit = props.unit? "mm/d": "in/d"
 
     return (
-        <>
-            Rain: {rain} {unit}
-        </>
+
+        <div className = {style.contents}>
+            <div className = {style.heading}>Rain</div>
+            
+            <div className = {style.body}>{rain} {unit}</div>
+        </div>
     )
 }
 export const getRain = (rain: number, unit: boolean) => {
     return <Rain rain = {rain} unit = {unit}/>
 }
 
-// Snow
 const Snow = (props: any) => {
     const snow = props.unit? (props.snow * 24).toFixed(1): ((props.snow * 24) / 25.4).toFixed(1)
     const unit = props.unit? "mm/d": "in/d"
 
     return (
-        <>
-            Snow: {snow} {unit}
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>Snow</div>
+            
+            <div className = {style.body}>{snow} {unit}</div>
+        </div>
     )
 }
 export const getSnow = (snow: number, unit: boolean) => {
@@ -80,9 +90,11 @@ export const getRainSnow = (rain: number, snow: number, unit: boolean) => {
 //Clouds
 const Clouds = (props: any) => {
     return (
-        <>
-            Clouds: {props.clouds}%
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>Clouds</div>
+            
+            <div className = {style.body}>{props.clouds}%</div>
+        </div>
     )
 }
 export const getClouds = (clouds: number) => {
@@ -92,9 +104,11 @@ export const getClouds = (clouds: number) => {
 // Humidity
 const Humidity = (props: any) => {
     return (
-        <>
-            Humidity: {props.humidity}%
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>Humidity</div>
+            
+            <div className = {style.body}>{props.humidity}%</div>
+        </div>
     )
 }
 export const getHumidity = (humidity: number) => {
@@ -104,9 +118,11 @@ export const getHumidity = (humidity: number) => {
 // Pressure
 const Pressure = (props: any) => {
     return (
-        <>
-            Pressure: {props.pressure} hPa
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>Pressure</div>
+            
+            <div className = {style.body}>{props.pressure} hPa</div>
+        </div>
     )
 }
 export const getPressure = (pressure: number) => {
@@ -116,9 +132,11 @@ export const getPressure = (pressure: number) => {
 // UV Index
 const UV = (props: any) => {
     return (
-        <>
-            UV Index: {props.uvIndex}
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>UV Index</div>
+            
+            <div className = {style.body}>{props.uvIndex}</div>
+        </div>
     )
 }
 export const getUVIndex = (uvIndex: number) => {
@@ -131,9 +149,11 @@ const Visibility = (props: any) => {
     const unit = props.unit? "m": "y"
 
     return (
-        <>
-            Visibility: {visibility} {unit}
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>Visibility</div>
+            
+            <div className = {style.body}>{visibility} {unit}</div>
+        </div>
     )
 }
 export const getVisibility = (visibility: number, unit: boolean) => {
@@ -165,11 +185,21 @@ const Wind = (props: any) => {
     }
 
     return (
-        <>
-            Wind:
-                Speed = {windSpeed} {unit}
-                Direction = {direction}
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>Wind</div>
+            
+            <div className = {style.body}>
+                <div className = {style.subContents}>
+                    <div className = {style.subHeading}>Speed</div>
+                    <div className = {style.subBody}>{windSpeed} {unit}</div>
+                </div>
+
+                <div className = {style.subContents}>
+                    <div className = {style.subHeading}>Direction</div>
+                    <div className = {style.subBody}>{direction}</div>
+                </div>
+            </div>
+        </div>
     )
 }
 export const getWind = (windSpeed: number, direction: number, unit: boolean) => {
@@ -181,11 +211,21 @@ const Sun = (props: any) => {
     const sunset = getTime(props.sunset, props.timezone)
 
     return (
-        <>
-            Sun
-                Rises: {sunrise}
-                Sets: {sunset}
-        </>
+        <div className = {style.contents}>
+            <div className = {style.heading}>Sun</div>
+            
+            <div className = {style.body}>
+                <div className = {style.subContents}>
+                    <div className = {style.subHeading}>Rises</div>
+                    <div className = {style.subBody}>{sunrise}</div>
+                </div>
+
+                <div className = {style.subContents}>
+                    <div className = {style.subHeading}>Sets</div>
+                    <div className = {style.subBody}>{sunset}</div>
+                </div>
+            </div>
+        </div>
     )
 }
 export const getSun = (sunrise: number, sunset: number, timezone: string) => {

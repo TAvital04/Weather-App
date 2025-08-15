@@ -35,7 +35,7 @@ type Data = {
 
 const WeatherCurrentElement = (props: any) => {
     return (
-        <>
+        <div className = {style.elementContents}>
             <div className = {style.main}>
                 <div className = {`${style.mainChild} ${style.top}`}>{renderUtils.getTemp(props.data.conditions.temp, props.unit, "Temperature")}</div>
                 <div className = {`${style.mainChild} ${style.top}`}>{renderUtils.getStatus(props.data.weather.status)}</div>
@@ -54,7 +54,7 @@ const WeatherCurrentElement = (props: any) => {
                 <div className = {style.otherChild}>{renderUtils.getWind(props.data.conditions.wind.speed, props.data.conditions.wind.direction, props.unit)}</div>
                 <div className = {style.otherChild}>{renderUtils.getSun(props.data.conditions.sun.rise, props.data.conditions.sun.set, props.data.conditions.sun.timezone)}</div>
             </div>
-        </>
+        </div>
     )
 }
 

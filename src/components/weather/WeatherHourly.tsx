@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 
-import * as renderUtils from "../../modules/renderUtils.tsx"
+import * as renderUtils from "../../modules/renderElementUtils.tsx"
 
 import mainStyle from "../../styles/main.module.css"
 import style from "../../styles/weatherHourly.module.css"
