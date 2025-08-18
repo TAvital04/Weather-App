@@ -4,10 +4,13 @@
 
 .heading {
     border-radius: 1rem;
+    padding-left: 1rem;
 }
 
 .contents {
     border-radius: 1rem;
+    padding-bottom: .5rem;
+    margin-bottom: 1rem;
 }
 :root[data-dark-mode = "dark"] .contents {
     background-color: rgb(from var(--sky-bg)
@@ -29,7 +32,7 @@
     width: 100%;
     flex-wrap: wrap;
 
-    border-radius: 1rem;  
+    border-radius: 1rem;
 }
 
 .mainChild {
@@ -39,6 +42,10 @@
   flex: 1 1 33.333%;
 
   border-radius: 1rem;
+
+  margin-left: .5rem;
+  margin-right: .5rem;
+  margin-bottom: 1rem;
 }
 
 :root[data-dark-mode = "dark"] .top {
@@ -56,47 +63,50 @@
     ); 
 }
 
-.mainSub {
+.top    { 
+    flex: 1 1 25%; 
+}
+.bottom { 
+    flex: 1 1 100%;
+    aspect-ratio: 1 / 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-
-    border-radius: 1rem;
+}
+@media (min-width: 1000px) {
+    .main {
+        border: 1px solid black;
+    }
 }
 
 .mainSubChild {
     flex: 1;
     border-radius: 1rem;
+    margin-left: 1%;
+    margin-right: 1%;
 }
-:root[data-dark-mode = "dark"] .mainChild {
+:root[data-dark-mode = "dark"] .mainSubChild {
     background-color: rgb(from var(--sky-bg)
         clamp(0, calc(r + var(--tone-step) * 4), 255)
         clamp(0, calc(g + var(--tone-step) * 4), 255)
         clamp(0, calc(b + var(--tone-step) * 4), 255)
     ); 
 }
-:root[data-dark-mode = "light"] .mainChild {
+:root[data-dark-mode = "light"] .mainSubChild {
     background-color: var(--sky-bg)
-}
-
-@media (max-width: 1000px) {
-    .top    { 
-        flex: 1 1 50%; 
-    }
-    .bottom { 
-        flex: 1 1 100%;
-        aspect-ratio: 1 / .25;
-        display: flex;
-        flex-direction: row;
-    }
 }
 
 .other {
     border-radius: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+
+    aspect-ratio: 1 / 1.5;
+    overflow-y: scroll;
 }
 
 .otherChild {
     border-radius: 1rem;
+    margin-bottom: 1rem;
 }
 :root[data-dark-mode = "dark"] .otherChild {
     background-color: rgb(from var(--sky-bg)

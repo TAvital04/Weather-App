@@ -72,14 +72,16 @@ const WeatherHourlyElement = (props: any) => {
         <div className = {style.element}>                
             <h4 className = {style.elementHeading}>{renderUtils.getTime(props.element.time.time, props.element.time.timezone)}</h4>
             
-            <div className = {style.elementChild}>{renderUtils.getStatus(props.element.weather.status)}</div>
-            <div className = {style.elementChild}>{renderUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</div>
-            <div className = {style.elementChild}>{renderUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</div>
-            <div className = {style.elementChild}>{renderUtils.getClouds(props.element.conditions.clouds)}</div>
-            <div className = {style.elementChild}>{renderUtils.getHumidity(props.element.conditions.humidity)}</div>
-            <div className = {style.elementChild}>{renderUtils.getPressure(props.element.conditions.pressure)}</div>
-            <div className = {style.elementChild}>{renderUtils.getUVIndex(props.element.conditions.uvIndex)}</div>
-            <div className = {style.elementChild}>{renderUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</div>
+            <div className = {style.elementConditions}>
+                <div className = {style.elementChild}>{renderUtils.getStatus(props.element.weather.status)}</div>
+                <div className = {style.elementChild}>{renderUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</div>
+                <div className = {style.elementChild}>{renderUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</div>
+                <div className = {style.elementChild}>{renderUtils.getClouds(props.element.conditions.clouds)}</div>
+                <div className = {style.elementChild}>{renderUtils.getHumidity(props.element.conditions.humidity)}</div>
+                <div className = {style.elementChild}>{renderUtils.getPressure(props.element.conditions.pressure)}</div>
+                <div className = {style.elementChild}>{renderUtils.getUVIndex(props.element.conditions.uvIndex)}</div>
+                <div className = {style.elementChild}>{renderUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</div>
+            </div>
         </div>
     )
 }

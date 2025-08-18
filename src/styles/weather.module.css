@@ -1,6 +1,7 @@
 .heading {
     border-radius: 1rem;
     border: 1px solid transparent;
+    padding-left: 1rem;
 }
 :root[data-dark-mode = "dark"] .heading {
     background-color: rgb(from var(--sky-bg)

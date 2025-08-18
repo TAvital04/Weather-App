@@ -1,6 +1,8 @@
 .contents {
     border-radius: 1rem;
-}
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;}
 :root[data-dark-mode = "dark"] .contents {
     background-color: rgb(from var(--sky-bg)
         clamp(0, calc(r + var(--tone-step) * 2), 255)
@@ -25,9 +27,16 @@
 .element {
     display: flex;
     flex-direction: column;
-    flex: 0 0 33.3333%;
+    flex: 0 0 50%;
+
 
     border-radius: 1rem;
+    padding: .5rem;
+}
+@media(max-width: 700px) {
+    .element {
+        flex: 0 0 100%
+    }
 }
 :root[data-dark-mode = "dark"] .element {
     background-color: rgb(from var(--sky-bg)
@@ -46,6 +55,7 @@
 
 .elementChild {
     border-radius: 1rem;
+    margin-bottom: 1rem;
 }
 :root[data-dark-mode = "dark"] .elementChild {
     background-color: rgb(from var(--sky-bg)
@@ -60,4 +70,9 @@
         clamp(0, calc(g + var(--tone-step)), 255)
         clamp(0, calc(b + var(--tone-step)), 255)
     );
+}
+
+.elementConditions {
+    aspect-ratio: 1 / 1.5;
+    overflow-y: scroll;
 }

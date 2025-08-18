@@ -82,17 +82,19 @@ const WeatherDailyElement = (props: any) => {
         <div className = {style.element}>
             <h4 className = {style.elementHeading}>{renderElementUtils.getDate(props.element.time.time, props.element.time.timezone)}</h4>
             
-            <div className = {style.elementChild}>{renderElementUtils.getStatus(props.element.weather.status)}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getRain(props.element.conditions.rain, props.unit)}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getSnow(props.element.conditions.snow, props.unit)}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getClouds(props.element.conditions.clouds)}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getHumidity(props.element.conditions.humidity)}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getPressure(props.element.conditions.pressure)}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getUVIndex(props.element.conditions.uvIndex)}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</div>
-            <div className = {style.elementChild}>{renderElementUtils.getSun(props.element.conditions.sun.rise, props.element.conditions.sun.set, props.element.conditions.timezone)}</div>
+            <div className = {style.elementConditions}>
+                <div className = {style.elementChild}>{renderElementUtils.getStatus(props.element.weather.status)}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getTemp(props.element.conditions.temp, props.unit, "Temperature")}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getTemp(props.element.conditions.feelsLike, props.unit, "Feels Like")}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getRain(props.element.conditions.rain, props.unit)}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getSnow(props.element.conditions.snow, props.unit)}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getClouds(props.element.conditions.clouds)}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getHumidity(props.element.conditions.humidity)}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getPressure(props.element.conditions.pressure)}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getUVIndex(props.element.conditions.uvIndex)}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getWind(props.element.conditions.wind.speed, props.element.conditions.wind.direction, props.unit)}</div>
+                <div className = {style.elementChild}>{renderElementUtils.getSun(props.element.conditions.sun.rise, props.element.conditions.sun.set, props.element.conditions.timezone)}</div>                
+            </div>
         </div>
     )
 }

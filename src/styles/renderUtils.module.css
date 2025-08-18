@@ -18,6 +18,7 @@
 
 .heading {
     border-radius: 1rem;
+    padding: 3%;
 }
 :root[data-dark-mode = "dark"] .heading {
     background-color: rgb(from var(--sky-bg)
@@ -36,6 +37,7 @@
 
 .subHeading {
     border-radius: 1rem;
+    padding: 4%;
 }
 :root[data-dark-mode = "dark"] .subHeading {
     background-color: rgb(from var(--sky-bg)
@@ -46,4 +48,8 @@
 }
 :root[data-dark-mode = "light"] .subHeading {
     background-color: var(--sky-bg)
+}
+
+.bodyText {
+    padding: 5%;
 }

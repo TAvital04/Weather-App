@@ -19,7 +19,7 @@ const Status = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>Status</div>
             
-            <div className = {style.body}>{props.status}</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{props.status}</div>
         </div>
     )
 }
@@ -37,7 +37,7 @@ const Temp = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>{type}</div>
             
-            <div className = {style.body}>{temp} {unit}</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{temp} {unit}</div>
         </div>
     )
 }
@@ -55,7 +55,7 @@ const Rain = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>Rain</div>
             
-            <div className = {style.body}>{rain} {unit}</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{rain} {unit}</div>
         </div>
     )
 }
@@ -71,7 +71,7 @@ const Snow = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>Snow</div>
             
-            <div className = {style.body}>{snow} {unit}</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{snow} {unit}</div>
         </div>
     )
 }
@@ -93,7 +93,7 @@ const Clouds = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>Clouds</div>
             
-            <div className = {style.body}>{props.clouds}%</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{props.clouds}%</div>
         </div>
     )
 }
@@ -107,7 +107,7 @@ const Humidity = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>Humidity</div>
             
-            <div className = {style.body}>{props.humidity}%</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{props.humidity}%</div>
         </div>
     )
 }
@@ -121,7 +121,7 @@ const Pressure = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>Pressure</div>
             
-            <div className = {style.body}>{props.pressure} hPa</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{props.pressure} hPa</div>
         </div>
     )
 }
@@ -135,7 +135,7 @@ const UV = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>UV Index</div>
             
-            <div className = {style.body}>{props.uvIndex}</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{props.uvIndex}</div>
         </div>
     )
 }
@@ -152,7 +152,7 @@ const Visibility = (props: any) => {
         <div className = {style.contents}>
             <div className = {style.heading}>Visibility</div>
             
-            <div className = {style.body}>{visibility} {unit}</div>
+            <div className = {`${style.body} ${style.bodyText}`}>{visibility} {unit}</div>
         </div>
     )
 }
@@ -191,12 +191,12 @@ const Wind = (props: any) => {
             <div className = {style.body}>
                 <div className = {style.subContents}>
                     <div className = {style.subHeading}>Speed</div>
-                    <div className = {style.subBody}>{windSpeed} {unit}</div>
+                    <div className = {`${style.body} ${style.bodyText} ${style.subBody}`}>{windSpeed} {unit}</div>
                 </div>
 
                 <div className = {style.subContents}>
                     <div className = {style.subHeading}>Direction</div>
-                    <div className = {style.subBody}>{direction}</div>
+                    <div className = {`${style.body} ${style.bodyText} ${style.subBody}`}>{direction}</div>
                 </div>
             </div>
         </div>
@@ -217,12 +217,12 @@ const Sun = (props: any) => {
             <div className = {style.body}>
                 <div className = {style.subContents}>
                     <div className = {style.subHeading}>Rises</div>
-                    <div className = {style.subBody}>{sunrise}</div>
+                    <div className = {`${style.body} ${style.bodyText} ${style.subBody}`}>{sunrise}</div>
                 </div>
 
                 <div className = {style.subContents}>
                     <div className = {style.subHeading}>Sets</div>
-                    <div className = {style.subBody}>{sunset}</div>
+                    <div className = {`${style.body} ${style.bodyText} ${style.subBody}`}>{sunset}</div>
                 </div>
             </div>
         </div>
